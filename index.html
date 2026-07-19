@@ -303,6 +303,22 @@
       background: var(--rose);
     }
 
+    .pseudocode {
+      margin-top: 16px;
+      border: 3px solid var(--ink);
+      background: #211f1d;
+      color: #f7f2e8;
+    }
+    .pseudocode h4 {
+      margin: 0;
+      padding: 12px 14px;
+      background: var(--acid);
+      color: var(--ink);
+      text-transform: uppercase;
+      border-bottom: 3px solid var(--ink);
+    }
+    .pseudocode pre { max-height: none; white-space: pre; }
+
     .line-explain {
       margin-top: 16px;
       border: 3px solid var(--ink);
@@ -586,6 +602,24 @@
 <li>This version assumes unique values. Duplicates need extra handling.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION findMin(array):
+  n &lt;- length(array)
+  IF n == 1:
+    RETURN array[0]
+  start &lt;- 0
+  end &lt;- n - 1
+  WHILE start &lt; end:
+    mid &lt;- start + (end - start) / 2
+    IF array[mid] &gt; array[end]:      // minimum lies to the right of mid
+      start &lt;- mid + 1
+    ELSE:                            // mid could be the minimum, keep it
+      end &lt;- mid
+  RETURN array[end]</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -678,6 +712,22 @@
 <li>If not guaranteed, do a second pass to verify count &gt; n/2.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION majorityElement(array):    // Boyer-Moore voting
+  count &lt;- 0
+  candidate &lt;- 0
+  FOR each num IN array:
+    IF count == 0:
+      candidate &lt;- num
+    IF num == candidate:
+      count &lt;- count + 1
+    ELSE:
+      count &lt;- count - 1
+  RETURN candidate</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -766,6 +816,33 @@
     <ul><li>Return null when lists is empty or low &gt; high.</li>
 <li>Recursive merge can stack overflow on huge lists; iterative merge is safer in production.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION mergeKLists(lists):
+  RETURN divide(lists, 0, length(lists) - 1)
+
+FUNCTION divide(lists, lo, hi):
+  IF lo == hi:
+    RETURN lists[lo]
+  IF lo &lt; hi:
+    mid &lt;- (lo + hi) / 2
+    l1 &lt;- divide(lists, lo, mid)
+    l2 &lt;- divide(lists, mid + 1, hi)
+    RETURN merge(l1, l2)
+  RETURN null
+
+FUNCTION merge(l1, l2):
+  IF l1 == null: RETURN l2
+  IF l2 == null: RETURN l1
+  IF l1.val &lt; l2.val:
+    l1.next &lt;- merge(l1.next, l2)
+    RETURN l1
+  ELSE:
+    l2.next &lt;- merge(l1, l2.next)
+    RETURN l2</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -919,6 +996,24 @@
 <li>The early min/max check is optional but useful.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION searchMatrix(matrix, target):
+  IF matrix is empty OR matrix[0] is empty:
+    RETURN false
+  row &lt;- 0                              // start at top-right corner
+  col &lt;- length(matrix[0]) - 1
+  WHILE row &lt; numRows(matrix) AND col &gt;= 0:
+    IF matrix[row][col] == target:
+      RETURN true
+    ELSE IF matrix[row][col] &gt; target:  // value too big, move left
+      col &lt;- col - 1
+    ELSE:                               // value too small, move down
+      row &lt;- row + 1
+  RETURN false</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -1014,6 +1109,31 @@
     <ul><li>Use inclusive bounds carefully: target &gt;= nums[start] and target &lt; nums[mid].</li>
 <li>This distinct-value version is simpler than the duplicate version.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION search(array, target):
+  IF array is empty:
+    RETURN -1
+  start &lt;- 0
+  end &lt;- length(array) - 1
+  WHILE start &lt;= end:
+    mid &lt;- start + (end - start) / 2
+    IF array[mid] == target:
+      RETURN mid
+    IF array[mid] &gt;= array[start]:                  // left half sorted
+      IF target &gt;= array[start] AND target &lt; array[mid]:
+        end &lt;- mid - 1
+      ELSE:
+        start &lt;- mid + 1
+    ELSE:                                           // right half sorted
+      IF target &gt; array[mid] AND target &lt;= array[end]:
+        start &lt;- mid + 1
+      ELSE:
+        end &lt;- mid - 1
+  RETURN -1</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -1128,6 +1248,34 @@
     <ul><li>Worst case is not O(log n), because [1,1,1,1,1] gives no direction.</li>
 <li>Do duplicate shrink before sorted-half reasoning.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION search(array, target):
+  IF array is empty:
+    RETURN false
+  start &lt;- 0
+  end &lt;- length(array) - 1
+  WHILE start &lt;= end:
+    mid &lt;- start + (end - start) / 2
+    IF array[mid] == target:
+      RETURN true
+    IF array[start] == array[mid] AND array[mid] == array[end]:  // duplicates, shrink
+      start &lt;- start + 1
+      end &lt;- end - 1
+    ELSE IF array[mid] &gt;= array[start]:             // left half sorted
+      IF target &gt;= array[start] AND target &lt; array[mid]:
+        end &lt;- mid - 1
+      ELSE:
+        start &lt;- mid + 1
+    ELSE:                                           // right half sorted
+      IF target &gt; array[mid] AND target &lt;= array[end]:
+        start &lt;- mid + 1
+      ELSE:
+        end &lt;- mid - 1
+  RETURN false</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -1265,6 +1413,25 @@ Greedy Algorithms</code></pre>
 <li>Touching endpoints count as burst: start &lt;= position means covered.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION findMinArrowShots(points):
+  IF points is empty:
+    RETURN 0
+  SORT points by end coordinate (point[1]) ascending
+  arrowCount &lt;- 1
+  position &lt;- points[0][1]
+  FOR i &lt;- 1 TO length(points) - 1:
+    IF position &gt;= points[i][0]:
+      // balloon overlaps current arrow, skip
+      CONTINUE
+    ELSE:
+      arrowCount &lt;- arrowCount + 1
+      position &lt;- points[i][1]
+  RETURN arrowCount</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -1360,6 +1527,24 @@ public class MinArrowsBalloons {
     <ul><li>Touching is allowed, so overlap is endpoint &gt; nextStart, not &gt;=.</li>
 <li>The count is removals, not kept intervals.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION eraseOverlapIntervals(intervals):
+  IF intervals is empty:
+    RETURN 0
+  SORT intervals by end coordinate (interval[1]) ascending
+  count &lt;- 0
+  endpoint &lt;- intervals[0][1]
+  FOR i &lt;- 1 TO length(intervals) - 1:
+    IF endpoint &gt; intervals[i][0]:
+      // overlaps, must remove this interval
+      count &lt;- count + 1
+    ELSE:
+      endpoint &lt;- intervals[i][1]
+  RETURN count</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -1461,6 +1646,23 @@ public class NonOverlappingIntervals {
     <ul><li>After taking a fraction, break. The bag is full.</li>
 <li>This greedy rule fails for 0/1 knapsack where splitting is not allowed.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION getMaxProfit(items, capacity):
+  SORT items by (profit / weight) ratio descending
+  maxProfit &lt;- 0
+  FOR each item IN items:
+    IF item.weight &lt;= capacity:
+      capacity &lt;- capacity - item.weight
+      maxProfit &lt;- maxProfit + item.profit
+    ELSE:
+      fraction &lt;- capacity / item.weight
+      maxProfit &lt;- maxProfit + fraction * item.profit
+      // knapsack full, remaining items skipped
+  RETURN maxProfit</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -1583,6 +1785,24 @@ public class NonOverlappingIntervals {
     <ul><li>Do not place a job after its deadline.</li>
 <li>Latest possible slot is better than earliest possible slot.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION jobSequencing(jobs, maxDeadline):
+  SORT jobs by profit descending
+  slot[0 .. maxDeadline-1] &lt;- all FREE
+  result[0 .. maxDeadline-1] &lt;- empty
+  totalProfit &lt;- 0
+  FOR each job IN jobs:
+    FOR j &lt;- min(maxDeadline - 1, job.deadline - 1) DOWNTO 0:
+      IF slot[j] is FREE:
+        slot[j] &lt;- OCCUPIED
+        result[j] &lt;- job.id
+        totalProfit &lt;- totalProfit + job.profit
+        BREAK
+  RETURN result, totalProfit</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -1733,6 +1953,23 @@ public class NonOverlappingIntervals {
     <ul><li>Dijkstra is invalid with negative edges.</li>
 <li>A production implementation usually skips stale queue entries.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION dijkstra(adj, V, src):
+  dist[0 .. V-1] &lt;- INFINITY
+  dist[src] &lt;- 0
+  pq &lt;- min-priority-queue ordered by distance
+  pq.push((src, 0))
+  WHILE pq is not empty:
+    u &lt;- pq.pop().node        // vertex with smallest distance
+    FOR each edge (v, weight) IN adj[u]:
+      IF dist[u] + weight &lt; dist[v]:
+        dist[v] &lt;- dist[u] + weight
+        pq.push((v, dist[v]))
+  RETURN dist</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -1931,6 +2168,25 @@ public class Dijkstras {
 <li>Visited check prevents cycles.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION prims(adj, V, source):
+  visited[0 .. V-1] &lt;- FALSE
+  pq &lt;- min-priority-queue ordered by edge weight
+  pq.push((source, 0))
+  mstCost &lt;- 0
+  WHILE pq is not empty:
+    (node, weight) &lt;- pq.pop()
+    IF NOT visited[node]:
+      visited[node] &lt;- TRUE
+      mstCost &lt;- mstCost + weight
+      FOR each edge (dest, w) IN adj[node]:
+        IF NOT visited[dest]:
+          pq.push((dest, w))
+  RETURN mstCost</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -2122,6 +2378,26 @@ public class Prims {
     <ul><li>Only use this for weights 0 and 1.</li>
 <li>For general non-negative weights, use Dijkstra.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION zeroOneBFS(adj, V, src):
+  dist[0 .. V-1] &lt;- INFINITY
+  dist[src] &lt;- 0
+  deque &lt;- empty double-ended queue
+  deque.pushBack(src)
+  WHILE deque is not empty:
+    u &lt;- deque.popFront()
+    FOR each edge (v, weight) IN adj[u]:
+      IF dist[u] + weight &lt; dist[v]:
+        dist[v] &lt;- dist[u] + weight
+        IF weight = 0:
+          deque.pushFront(v)    // 0-weight: front
+        ELSE:
+          deque.pushBack(v)     // 1-weight: back
+  RETURN dist</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -2337,6 +2613,25 @@ Dynamic Programming</code></pre>
 <li>Initialize with amount + 1, not Integer.MAX_VALUE, to avoid overflow on +1.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION coinChange(coins, amount):
+  // dp[i] = fewest coins to make amount i
+  IF amount == 0:
+    RETURN 0
+  FOR i FROM 0 TO amount:
+    dp[i] &lt;- amount + 1        // sentinel = infinity
+  dp[0] &lt;- 0                   // base case
+  FOR i FROM 1 TO amount:
+    FOR each c IN coins:
+      IF i &gt;= c:
+        dp[i] &lt;- min(dp[i], dp[i - c] + 1)
+  IF dp[amount] &gt; amount:
+    RETURN -1                  // amount unreachable
+  RETURN dp[amount]</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -2413,6 +2708,21 @@ Dynamic Programming</code></pre>
 <li>This pattern appears as maximum non-adjacent sum.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION rob(nums):
+  // dp[i] = max loot using houses 0..i (no two adjacent)
+  n &lt;- length(nums)
+  IF n == 1:
+    RETURN nums[0]
+  dp[0] &lt;- nums[0]                            // base case
+  dp[1] &lt;- max(nums[0], nums[1])              // base case
+  FOR i FROM 2 TO n - 1:
+    dp[i] &lt;- max(dp[i - 1], nums[i] + dp[i - 2])
+  RETURN dp[n - 1]</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -2487,6 +2797,23 @@ Dynamic Programming</code></pre>
     <ul><li>Subsequence does not require contiguous characters.</li>
 <li>Use 1-based DP dimensions to avoid boundary pain.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION longestCommonSubsequence(s1, s2):
+  // dp[i][j] = LCS length of s1[0..i-1] and s2[0..j-1]
+  n &lt;- length(s1) + 1
+  m &lt;- length(s2) + 1
+  dp &lt;- 2D array (n x m) filled with 0     // base row/col = 0
+  FOR i FROM 1 TO n - 1:
+    FOR j FROM 1 TO m - 1:
+      IF s1[i - 1] == s2[j - 1]:
+        dp[i][j] &lt;- dp[i - 1][j - 1] + 1
+      ELSE:
+        dp[i][j] &lt;- max(dp[i - 1][j], dp[i][j - 1])
+  RETURN dp[n - 1][m - 1]</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -2569,6 +2896,25 @@ Dynamic Programming</code></pre>
     <ul><li>Strictly increasing means use &gt;, not &gt;=.</li>
 <li>The code in your doc also keeps count, but length-only LIS does not need count[].</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION lengthOfLIS(nums):
+  // dp[i] = length of longest increasing subsequence ending at i
+  IF nums is empty:
+    RETURN 0
+  n &lt;- length(nums)
+  FOR i FROM 0 TO n - 1:
+    dp[i] &lt;- 1                               // base case
+  maxLength &lt;- 1
+  FOR i FROM 1 TO n - 1:
+    FOR j FROM 0 TO i - 1:
+      IF nums[i] &gt; nums[j] AND dp[j] + 1 &gt; dp[i]:
+        dp[i] &lt;- dp[j] + 1
+    maxLength &lt;- max(maxLength, dp[i])
+  RETURN maxLength</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -2668,6 +3014,34 @@ Arrays.fill(dp, 1);
     <ul><li>Do not add counts when you found a strictly better length; replace first.</li>
 <li>Only sum counts at positions with maxLength.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION findNumberOfLIS(nums):
+  // dp[i] = LIS length ending at i; count[i] = number of such LIS
+  IF nums is empty:
+    RETURN 0
+  n &lt;- length(nums)
+  FOR i FROM 0 TO n - 1:
+    dp[i] &lt;- 1
+    count[i] &lt;- 1
+  maxLength &lt;- 1
+  FOR i FROM 1 TO n - 1:
+    FOR j FROM 0 TO i - 1:
+      IF nums[i] &gt; nums[j]:
+        IF dp[j] + 1 &gt; dp[i]:
+          dp[i] &lt;- dp[j] + 1
+          count[i] &lt;- count[j]
+        ELSE IF dp[j] + 1 == dp[i]:
+          count[i] &lt;- count[i] + count[j]
+    maxLength &lt;- max(maxLength, dp[i])
+  result &lt;- 0
+  FOR i FROM 0 TO n - 1:
+    IF dp[i] == maxLength:
+      result &lt;- result + count[i]
+  RETURN result</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -2780,6 +3154,25 @@ Arrays.fill(dp, 1);
 <li>Fill order matters because dp[i+1][j-1] must already exist.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION longestPalindromeSubseq(s):
+  // dp[i][j] = longest palindromic subsequence in s[i..j]
+  n &lt;- length(s)
+  IF n == 1:
+    RETURN 1
+  dp &lt;- 2D array (n x n) filled with 0
+  FOR i FROM n - 1 DOWNTO 0:
+    dp[i][i] &lt;- 1                            // single char = palindrome
+    FOR j FROM i + 1 TO n - 1:
+      IF s[i] == s[j]:
+        dp[i][j] &lt;- dp[i + 1][j - 1] + 2
+      ELSE:
+        dp[i][j] &lt;- max(dp[i + 1][j], dp[i][j - 1])
+  RETURN dp[0][n - 1]</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -2860,6 +3253,21 @@ Arrays.fill(dp, 1);
 <li>This is contiguous subarray, not subsequence.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION maxSubArray(nums):
+  // dp[i] = max subarray sum ending at index i (Kadane)
+  IF nums is empty:
+    RETURN 0
+  dp[0] &lt;- nums[0]                           // base case
+  max &lt;- dp[0]
+  FOR i FROM 1 TO length(nums) - 1:
+    dp[i] &lt;- max(nums[i], nums[i] + dp[i - 1])
+    max &lt;- max(max, dp[i])
+  RETURN max</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -2931,6 +3339,22 @@ Arrays.fill(dp, 1);
     <ul><li>First row and first column are base cases.</li>
 <li>Do not allow diagonal movement.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION uniquePaths(m, n):
+  // grid[i][j] = number of paths from (0,0) to (i,j), moving right/down
+  grid &lt;- 2D array (m x n)
+  FOR i FROM 0 TO m - 1:
+    grid[i][0] &lt;- 1                          // only one way down first column
+  FOR j FROM 0 TO n - 1:
+    grid[0][j] &lt;- 1                          // only one way across first row
+  FOR i FROM 1 TO m - 1:
+    FOR j FROM 1 TO n - 1:
+      grid[i][j] &lt;- grid[i - 1][j] + grid[i][j - 1]
+  RETURN grid[m - 1][n - 1]</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -3013,6 +3437,29 @@ Arrays.fill(dp, 1);
     <ul><li>Mutating obstacleGrid is fine only if caller does not need original data.</li>
 <li>Start/end blocked returns 0 immediately.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION uniquePathsWithObstacles(grid):
+  // grid[i][j] becomes number of paths to (i,j); obstacle (=1) =&gt; 0 paths
+  rows &lt;- number of rows(grid)
+  cols &lt;- number of cols(grid)
+  IF grid[0][0] == 1 OR grid[rows - 1][cols - 1] == 1:
+    RETURN 0
+  grid[0][0] &lt;- 1
+  FOR i FROM 1 TO rows - 1:
+    grid[i][0] &lt;- (grid[i][0] == 0) ? grid[i - 1][0] : 0
+  FOR j FROM 1 TO cols - 1:
+    grid[0][j] &lt;- (grid[0][j] == 0) ? grid[0][j - 1] : 0
+  FOR i FROM 1 TO rows - 1:
+    FOR j FROM 1 TO cols - 1:
+      IF grid[i][j] == 1:                     // obstacle
+        grid[i][j] &lt;- 0
+      ELSE:
+        grid[i][j] &lt;- grid[i - 1][j] + grid[i][j - 1]
+  RETURN grid[rows - 1][cols - 1]</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -3118,6 +3565,24 @@ Arrays.fill(dp, 1);
     <ul><li>Check dist[source] != infinity before adding weight.</li>
 <li>Dijkstra cannot handle negative edges; Bellman-Ford can.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION bellmanFord(V, edges, src):
+  dist &lt;- array of size V filled with INFINITY
+  dist[src] &lt;- 0
+  // Relax all edges V-1 times
+  FOR i &lt;- 1 TO V - 1:
+    FOR each (u, v, w) IN edges:
+      IF dist[u] != INFINITY AND dist[u] + w &lt; dist[v]:
+        dist[v] &lt;- dist[u] + w
+  // One more pass: any relaxation means a negative cycle
+  FOR each (u, v, w) IN edges:
+    IF dist[u] != INFINITY AND dist[u] + w &lt; dist[v]:
+      RETURN "negative cycle detected"
+  RETURN dist</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -3262,6 +3727,20 @@ Arrays.fill(dp, 1);
 <li>The adjacency matrix must be square.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION floydWarshall(dist):
+  n &lt;- number of vertices
+  // dist[i][j] = edge weight, INF if no edge, 0 on diagonal
+  FOR k &lt;- 0 TO n - 1:
+    FOR i &lt;- 0 TO n - 1:
+      FOR j &lt;- 0 TO n - 1:
+        IF dist[i][k] + dist[k][j] &lt; dist[i][j]:
+          dist[i][j] &lt;- dist[i][k] + dist[k][j]
+  RETURN dist</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -3368,6 +3847,20 @@ Arrays.fill(dp, 1);
 <li>Do not confuse with fractional knapsack; ratio greedy is wrong here.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION knapsack(capacity, values, weights):
+  n &lt;- length(weights)
+  dp &lt;- array of size (capacity + 1) filled with 0
+  // dp[c] = best value using items seen so far within capacity c
+  FOR i &lt;- 0 TO n - 1:
+    // iterate capacity downward so each item is used at most once
+    FOR c &lt;- capacity DOWNTO weights[i]:
+      dp[c] &lt;- MAX(dp[c], dp[c - weights[i]] + values[i])
+  RETURN dp[capacity]</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -3469,6 +3962,28 @@ Arrays.fill(dp, 1);
     <ul><li>Use bit operations carefully: mask | (1 &lt;&lt; i).</li>
 <li>This is exponential DP, suitable only for small n.</li></ul>
   </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION tsp(cost):
+  n &lt;- number of cities
+  dp &lt;- 2D array [1&lt;&lt;n][n] filled with -1   // dp[mask][pos]
+  RETURN solve(mask = 1, pos = 0)   // only city 0 visited
+
+FUNCTION solve(mask, pos):
+  // all cities visited: close the tour back to city 0
+  IF mask == (1 &lt;&lt; n) - 1:
+    RETURN cost[pos][0]
+  IF dp[mask][pos] != -1:
+    RETURN dp[mask][pos]
+  best &lt;- INFINITY
+  FOR next &lt;- 0 TO n - 1:
+    IF (mask AND (1 &lt;&lt; next)) == 0:   // next not yet visited
+      best &lt;- MIN(best, cost[pos][next] + solve(mask OR (1 &lt;&lt; next), next))
+  dp[mask][pos] &lt;- best
+  RETURN best</pre>
+  </div>
+
 
 
   <details class="line-explain">
@@ -3621,6 +4136,24 @@ Arrays.fill(dp, 1);
 <li>Printing one subset requires the full table or parent tracking.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION subsetSum(nums, sum):
+  n &lt;- length(nums)
+  dp &lt;- 2D boolean array [n+1][sum+1]
+  // empty subset always reaches sum 0
+  FOR i &lt;- 0 TO n:
+    dp[i][0] &lt;- true
+  FOR i &lt;- 1 TO n:
+    FOR j &lt;- 1 TO sum:
+      IF j &lt; nums[i-1]:
+        dp[i][j] &lt;- dp[i-1][j]              // cannot take item i
+      ELSE:
+        dp[i][j] &lt;- dp[i-1][j] OR dp[i-1][j - nums[i-1]]  // skip OR take
+  RETURN dp[n][sum]</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -3756,6 +4289,28 @@ Backtracking</code></pre>
 <li>Backtracking bugs usually come from forgetting to unmark.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION nQueens(n):
+  result &lt;- empty list
+  board &lt;- empty list        // board[col] = row of queen
+  rows, diag1, diag2 &lt;- boolean arrays (all false)
+  place(col = 1)
+  RETURN result
+
+FUNCTION place(col):
+  IF col &gt; n:                          // all columns filled
+    add copy of board to result
+    RETURN
+  FOR row &lt;- 1 TO n:
+    // diagonals identified by (row+col) and (row-col)
+    IF NOT rows[row] AND NOT diag1[row+col] AND NOT diag2[row-col+n]:
+      board.add(row); rows[row] &lt;- diag1[row+col] &lt;- diag2[row-col+n] &lt;- true
+      place(col + 1)
+      board.removeLast(); rows[row] &lt;- diag1[row+col] &lt;- diag2[row-col+n] &lt;- false</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -3882,6 +4437,30 @@ Pattern Matching</code></pre>
 <li>Handle negative modulo after rolling update.</li></ul>
   </div>
 
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION rabinKarp(text, pattern):
+  M &lt;- length(pattern); N &lt;- length(text)
+  d &lt;- 256          // alphabet size
+  q &lt;- 101          // prime modulus
+  h &lt;- 1
+  FOR i &lt;- 1 TO M - 1:
+    h &lt;- (h * d) MOD q          // h = d^(M-1) MOD q
+  p &lt;- 0; t &lt;- 0                // hash of pattern, hash of first window
+  FOR i &lt;- 0 TO M - 1:
+    p &lt;- (d * p + pattern[i]) MOD q
+    t &lt;- (d * t + text[i]) MOD q
+  FOR i &lt;- 0 TO N - M:
+    IF p == t:                  // hashes match, verify char by char
+      IF text[i .. i+M-1] == pattern:
+        REPORT match at index i
+    IF i &lt; N - M:               // roll hash to next window
+      t &lt;- (d * (t - text[i] * h) + text[i+M]) MOD q
+      IF t &lt; 0:
+        t &lt;- t + q</pre>
+  </div>
+
+
 
   <details class="line-explain">
     <summary>Line-by-line code explanation</summary>
@@ -3996,8 +4575,8 @@ Pattern Matching</code></pre>
       <div class="routine">
         <div>0:00-0:10<br>Recall yesterday, no notes</div>
         <div>0:10-0:50<br>Learn core idea</div>
-        <div>0:50-1:50<br>Code from memory</div>
-        <div>1:50-2:35<br>Dry-run + complexity</div>
+        <div>0:50-1:50<br>Handwrite pseudocode from memory</div>
+        <div>1:50-2:35<br>Dry-run table + complexity</div>
         <div>2:35-2:55<br>Extra reps on weak ones</div>
         <div>2:55-3:00<br>Error log + flashcards</div>
       </div>
@@ -4008,21 +4587,21 @@ Pattern Matching</code></pre>
   <td><strong>Jul 19</strong><span>Sun &middot; 8:30&ndash;11:30pm</span></td>
   <td>GUARANTEED THREE (one WILL appear)</td>
   <td>8:30&ndash;9:25 N-Queens (backtracking). 9:25&ndash;10:20 Rabin-Karp (rolling hash). 10:20&ndash;11:20 TSP (bitmask DP). 11:20&ndash;11:30 flashcards.</td>
-  <td>All three coded from memory once. State the trigger + complexity for each: N-Queens O(N!), Rabin-Karp O(n+m) avg, TSP O(2&#8319;&middot;n&sup2;).</td>
+  <td>All three handwritten as pseudocode from memory once (no typing). State the trigger + complexity for each: N-Queens O(N!), Rabin-Karp O(n+m) avg, TSP O(2&#8319;&middot;n&sup2;).</td>
 </tr>
 
 <tr>
   <td><strong>Jul 20</strong><span>Mon &middot; 8:30&ndash;11:30pm</span></td>
   <td>Learn: Divide &amp; Conquer + answer template</td>
   <td>Find Min / Search in Rotated Sorted Array (I &amp; II), Search 2D Matrix II, Majority Element, Merge K Sorted Lists. Read the 40-mark template.</td>
-  <td>All 6 D&amp;C algos coded from memory once. Binary-search boundary rules written out. Template memorised: Definition &rarr; Algorithm &rarr; Code &rarr; Complexity.</td>
+  <td>All 6 D&amp;C algos handwritten as pseudocode from memory once. Binary-search boundary rules written out. Template memorised: Definition &rarr; Algorithm &rarr; Code &rarr; Complexity.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 21</strong><span>Tue &middot; 8:30&ndash;11:30pm</span></td>
   <td>Learn: Greedy (incl. graph greedy)</td>
   <td>Min Arrows, Non-overlapping Intervals, Fractional Knapsack, Job Sequencing, Dijkstra, Prim, 0-1 BFS.</td>
-  <td>Interval-scheduling rule stated (sort by end). Dijkstra + Prim coded from memory. Complexity for each.</td>
+  <td>Interval-scheduling rule stated (sort by end). Dijkstra + Prim handwritten as pseudocode from memory. Complexity for each.</td>
 </tr>
 
 <tr>
@@ -4035,8 +4614,8 @@ Pattern Matching</code></pre>
 <tr>
   <td><strong>Jul 23</strong><span>Thu &middot; 8:30&ndash;11:30pm</span></td>
   <td>REVISION: re-drill guaranteed three + mock</td>
-  <td>8:30&ndash;9:30 re-code N-Queens, Rabin-Karp, TSP cold (no notes). 9:30&ndash;10:15 weakest 5 from error log. 10:15&ndash;11:30 one 40-mark timed mock.</td>
-  <td>The three guaranteed algos coded perfectly from memory. Every other algo recalled name &rarr; approach &rarr; complexity in under 30s. Mock done under time.</td>
+  <td>8:30&ndash;9:30 re-write N-Queens, Rabin-Karp, TSP pseudocode cold on paper (no notes). 9:30&ndash;10:15 weakest 5 from error log. 10:15&ndash;11:30 one 40-mark timed mock, handwritten.</td>
+  <td>The three guaranteed algos handwritten perfectly from memory. Every other algo recalled name &rarr; approach &rarr; complexity in under 30s. Mock done under time.</td>
 </tr>
 
 <tr>
