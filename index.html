@@ -3992,127 +3992,58 @@ Pattern Matching</code></pre>
 
     <section class="timetable" id="timetable">
       <h2>Study Timetable</h2>
-      <p><strong>Daily minimum: 2 hours.</strong> The schedule is compressed on purpose: finish first pass early, then run two revision loops before the July 24 paper.</p>
+      <p><strong>Daily target: 3 hours &times; 5 days (Jul 19&ndash;23). Exam Jul 24.</strong> The first 10 days are gone &mdash; this is the salvage plan. Four learning days front-load the highest-yield topics (DP gets the most), then Jul 23 is a full revision + mock day.</p>
       <div class="routine">
-        <div>0:00-0:10<br>Recall without notes</div>
-        <div>0:10-0:35<br>Core idea</div>
-        <div>0:35-1:15<br>Code from memory</div>
-        <div>1:15-1:45<br>Dry-run + complexity</div>
-        <div>1:45-2:00<br>Error log + flashcards</div>
+        <div>0:00-0:10<br>Recall yesterday, no notes</div>
+        <div>0:10-0:50<br>Learn core idea</div>
+        <div>0:50-1:50<br>Code from memory</div>
+        <div>1:50-2:35<br>Dry-run + complexity</div>
+        <div>2:35-2:55<br>Extra reps on weak ones</div>
+        <div>2:55-3:00<br>Error log + flashcards</div>
       </div>
       <table style="margin-top:18px">
         <thead><tr><th>Date</th><th>Focus</th><th>Topics</th><th>Required Output</th></tr></thead>
         <tbody>
 <tr>
-  <td><strong>Jul 9</strong><span>Thu</span></td>
-  <td>First pass 1: binary search block</td>
-  <td>Q153, Q33, Q81, Q240</td>
-  <td>Write all boundary rules from memory. Dry-run rotated arrays and matrix staircase once each.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 10</strong><span>Fri</span></td>
-  <td>First pass 2: divide/conquer finish</td>
-  <td>Q169, Q23</td>
-  <td>Explain cancellation and merge tournament aloud. Code both without looking.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 11</strong><span>Sat</span></td>
-  <td>First pass 3: greedy block</td>
-  <td>Q452, Q435, Fractional Knapsack, Job Sequencing</td>
-  <td>Sort-by-end and profit/deadline logic. Make one greedy decision chart.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 12</strong><span>Sun</span></td>
-  <td>First pass 4: graph algorithms</td>
-  <td>Dijkstra, Prim, 0-1 BFS, Bellman-Ford, Floyd-Warshall</td>
-  <td>Build a graph decision table: shortest path, MST, 0/1 weights, negative edges, all-pairs.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 13</strong><span>Mon</span></td>
-  <td>First pass 5: DP foundations</td>
-  <td>Coin Change, House Robber, Maximum Subarray, Unique Paths, Unique Paths II</td>
-  <td>For each: state, base case, transition, answer cell. No code until those four are clear.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 14</strong><span>Tue</span></td>
-  <td>First pass 6: sequence DP</td>
-  <td>LCS, LIS, Number of LIS, Longest Palindromic Subsequence</td>
-  <td>Memorize transitions: diagonal+1, look-left-smaller, replace/add count, matching ends.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 15</strong><span>Wed</span></td>
-  <td>First pass 7: hard DP + subset</td>
-  <td>0/1 Knapsack, Subset Sum, TSP</td>
-  <td>Backward capacity loop, boolean subset table, and TSP mask/position state.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 16</strong><span>Thu</span></td>
-  <td>First pass 8: recursion + strings + cleanup</td>
-  <td>N-Queens, Rabin-Karp, weakest 5 from first pass</td>
-  <td>Finish syllabus. Mark weak cards honestly; these drive Revision 1.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 17</strong><span>Fri</span></td>
-  <td>Revision 1A: divide + greedy</td>
-  <td>All divide/conquer and greedy cards</td>
-  <td>Closed-notes recall first, then reopen notes only for failures. Re-code 6 selected problems.</td>
-</tr>
-
-<tr>
-  <td><strong>Jul 18</strong><span>Sat</span></td>
-  <td>Revision 1B: graph algorithms</td>
-  <td>Dijkstra, Prim, 0-1 BFS, Bellman-Ford, Floyd-Warshall</td>
-  <td>One comparison table from memory. Then code two randomly chosen graph algorithms.</td>
-</tr>
-
-<tr>
   <td><strong>Jul 19</strong><span>Sun</span></td>
-  <td>Revision 1C: DP core</td>
-  <td>Coin, robber, max subarray, grids, LCS, LIS family, LPS</td>
-  <td>Write every DP state and transition from memory before opening the page.</td>
+  <td>Learn: Divide &amp; Conquer + answer template</td>
+  <td>Find Min / Search in Rotated Sorted Array (I &amp; II), Search 2D Matrix II, Majority Element, Merge K Sorted Lists. Read the 40-mark template.</td>
+  <td>All 6 D&amp;C algos coded from memory once. Binary-search boundary rules written out. Template memorised: Definition &rarr; Algorithm &rarr; Code &rarr; Complexity.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 20</strong><span>Mon</span></td>
-  <td>Revision 1D: hard patterns</td>
-  <td>Knapsack, Subset Sum, TSP, N-Queens, Rabin-Karp</td>
-  <td>Make final error list. Anything missed today becomes mandatory in Revision 2.</td>
+  <td>Learn: Greedy (incl. graph greedy)</td>
+  <td>Min Arrows, Non-overlapping Intervals, Fractional Knapsack, Job Sequencing, Dijkstra, Prim, 0-1 BFS.</td>
+  <td>Interval-scheduling rule stated (sort by end). Dijkstra + Prim coded from memory. Complexity for each.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 21</strong><span>Tue</span></td>
-  <td>Revision 2A: speed recall</td>
-  <td>All 29 algorithm triggers</td>
-  <td>For every card: trigger, pattern, complexity in under 60 seconds. No full notes.</td>
+  <td>Learn: DP part 1 &mdash; foundations + sequence DP</td>
+  <td>Coin Change, House Robber, Maximum Subarray, Unique Paths I &amp; II, LIS, Number of LIS, LCS, Longest Palindromic Subsequence.</td>
+  <td>Recurrence written before code for each. 1D vs 2D table drawn for LCS/LIS.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 22</strong><span>Wed</span></td>
-  <td>Revision 2B: code skeleton sprint</td>
-  <td>12 mixed algorithms from weak list</td>
-  <td>Write skeletons under time. Check only after finishing each skeleton.</td>
+  <td>Learn: DP part 2 (hard/graph) + last topics</td>
+  <td>0/1 Knapsack, Subset Sum, Bellman-Ford, Floyd-Warshall, TSP, N-Queens (backtracking), Rabin-Karp (pattern matching).</td>
+  <td>Knapsack + Subset Sum coded. Bellman-Ford vs Floyd-Warshall use-case noted. N-Queens + Rabin-Karp seen once. Build final error list.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 23</strong><span>Thu</span></td>
-  <td>Revision 2C: mock + final fixes</td>
-  <td>Full 40-mark simulation + weakest 6</td>
-  <td>75 min mock, 30 min correction, 15 min rewrite of only failed transitions.</td>
+  <td>REVISION DAY: full recall + timed mock</td>
+  <td>Speed-recall all 29 algorithms. Re-do your 5 weakest from the error log. One 40-mark timed mock.</td>
+  <td>Every algo recalled name &rarr; approach &rarr; complexity in under 30s. Mock done under time. Final flashcard pass.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 24</strong><span>Fri</span></td>
-  <td>Exam day warm-up</td>
-  <td>45-minute recall only</td>
-  <td>No heavy new learning. Read decision chart, transitions, traps, and final error list.</td>
+  <td>Exam-day warm-up</td>
+  <td>Skim error log + flashcards only. No new material.</td>
+  <td>Stay calm. Re-read the 40-mark template once before the paper.</td>
 </tr></tbody>
       </table>
     </section>
