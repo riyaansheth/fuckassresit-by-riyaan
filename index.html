@@ -505,11 +505,10 @@
     <nav class="nav">
       <a href="#plan">Plan</a>
       <a href="#matrix">Pattern Matrix</a>
+      <a href="#guaranteed-three">Guaranteed 3</a>
       <a href="#divide-conquer">Divide &amp; Conquer</a>
 <a href="#greedy-algorithms">Greedy Algorithms</a>
 <a href="#dynamic-programming">Dynamic Programming</a>
-<a href="#backtracking">Backtracking</a>
-<a href="#pattern-matching">Pattern Matching</a>
       <a href="#timetable">Timetable</a>
     </nav>
   </header>
@@ -563,14 +562,496 @@
     </section>
 
     
+<section class="content-section" id="guaranteed-three">
+  <div class="section-title">
+    <p>Prof-confirmed &mdash; one WILL appear</p>
+    <h2>The Guaranteed Three</h2>
+  </div>
+
+<article class="algo-card" id="n-queens" data-section="Backtracking">
+  <div class="card-stamp">UNIT 01</div>
+  <div class="card-head">
+    <div>
+      <p class="eyebrow">Backtracking / Hard</p>
+      <h3>N-Queens</h3>
+    </div>
+    <label class="done-box"><input type="checkbox" data-check="n-queens"><span>MASTERED</span></label>
+  </div>
+  <div class="pattern-strip"><strong>Exam trigger:</strong> Place queens so none attack each other.</div>
+  <div class="grid-two">
+    <section>
+      <h4>Plain-English Core</h4>
+      <p>Place one queen per column. Before placing, check if its row or diagonals are already under attack. If a choice later fails, undo it and try the next row.</p>
+      <div class="memory-lock"><strong>Memory lock:</strong> Choose, mark, recurse, unmark.</div>
+      <p class="dry-run"><strong>Dry run:</strong> For n=4, the recursion eventually finds two valid board layouts.</p>
+    </section>
+    <section>
+      <h4>Code Walkthrough</h4>
+      <ol><li>Column j is the recursion level.</li>
+<li>Try every row i in that column.</li>
+<li>Reject if row, main diagonal, or anti-diagonal is occupied.</li>
+<li>Place queen and mark row/diagonals.</li>
+<li>Recurse to next column, then unmark on return.</li></ol>
+      <p class="complexity">Roughly O(n!), space O(n) plus result storage.</p>
+    </section>
+  </div>
+  <div class="trap-box">
+    <h4>Marks-Losing Traps</h4>
+    <ul><li>Diagonal formulas: row+col and row-col+n.</li>
+<li>Backtracking bugs usually come from forgetting to unmark.</li></ul>
+  </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION nQueens(n):
+  result &lt;- empty list
+  board &lt;- empty list        // board[col] = row of queen
+  rows, diag1, diag2 &lt;- boolean arrays (all false)
+  place(col = 1)
+  RETURN result
+
+FUNCTION place(col):
+  IF col &gt; n:                          // all columns filled
+    add copy of board to result
+    RETURN
+  FOR row &lt;- 1 TO n:
+    // diagonals identified by (row+col) and (row-col)
+    IF NOT rows[row] AND NOT diag1[row+col] AND NOT diag2[row-col+n]:
+      board.add(row); rows[row] &lt;- diag1[row+col] &lt;- diag2[row-col+n] &lt;- true
+      place(col + 1)
+      board.removeLast(); rows[row] &lt;- diag1[row+col] &lt;- diag2[row-col+n] &lt;- false</pre>
+  </div>
+
+
+
+  <details class="line-explain">
+    <summary>Line-by-line code explanation</summary>
+    <div class="line-table">
+<div class="line-row"><div class="line-code"><span class="line-no">1</span><span>private static void nQueensUtil(int j, int n, List&lt;Integer&gt; board, boolean[] rows, boolean[] diag1, boolean[] diag2, List&lt;List&lt;Integer&gt;&gt; result){</span></div><div class="line-note">Defines the method nQueensUtil. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">2</span><span>    if (j &gt; n){</span></div><div class="line-note">Checks whether j is greater than n. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">3</span><span>        result.add(new ArrayList&lt;&gt;(board));</span></div><div class="line-note">Creates a dynamic list that can grow as elements are added.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">4</span><span>        return;</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">5</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">6</span><span>    for (int i = 1; i &lt;= n; i++){</span></div><div class="line-note">Runs a loop using this control rule: int i = 1; i is at most n; i++.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">7</span><span>        if (!rows[i] &amp;&amp; !diag1[i+j] &amp;&amp; !diag2[i - j + n]){</span></div><div class="line-note">Checks whether !rows[i] AND !diag1[i+j] AND !diag2[i - j + n]. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">8</span><span>            board.add(i);</span></div><div class="line-note">Adds this item into a list, graph adjacency list, priority queue, or result collection.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">9</span><span>            rows[i] = true;</span></div><div class="line-note">Sets rows[i] to true. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">10</span><span>            diag1[i+j] = true;</span></div><div class="line-note">Sets diag1[i+j] to true. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">11</span><span>            diag2[i-j+n] = true;</span></div><div class="line-note">Sets diag2[i-j+n] to true. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">12</span><span>            nQueensUtil(j+1, n, board, rows, diag1, diag2, result);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">13</span><span>            board.remove(board.size() - 1);</span></div><div class="line-note">Removes the last chosen item while backtracking to undo the previous choice.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">14</span><span>            rows[i] = false;</span></div><div class="line-note">Sets rows[i] to false. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">15</span><span>            diag1[i+j] = false;</span></div><div class="line-note">Sets diag1[i+j] to false. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">16</span><span>            diag2[i-j+n] = false;</span></div><div class="line-note">Sets diag2[i-j+n] to false. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">17</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">18</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">19</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">20</span><span>public static List&lt;List&lt;Integer&gt;&gt; nQueens(int n){</span></div><div class="line-note">Defines the method nQueens. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">21</span><span>    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();</span></div><div class="line-note">Creates a dynamic list that can grow as elements are added.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">22</span><span>    List&lt;Integer&gt; board = new ArrayList&lt;&gt;();</span></div><div class="line-note">Creates a dynamic list that can grow as elements are added.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">23</span><span>    boolean[] rows = new boolean[n + 1];</span></div><div class="line-note">Creates a boolean marker array to remember which states are already used or possible.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">24</span><span>    boolean[] diag1 = new boolean[2*n+1];</span></div><div class="line-note">Creates a boolean marker array to remember which states are already used or possible.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">25</span><span>    boolean[] diag2 = new boolean[2*n+1];</span></div><div class="line-note">Creates a boolean marker array to remember which states are already used or possible.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">26</span><span>    nQueensUtil(1, n, board, rows, diag1, diag2, result);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">27</span><span>    return result;</span></div><div class="line-note">Returns the final answer collection or count after all work is complete.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">28</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">29</span><span>public static void main(String[] args){</span></div><div class="line-note">Defines the method main. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">30</span><span>    Scanner sc = new Scanner(System.in);</span></div><div class="line-note">Creates an input reader so the program can read values from the user.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">31</span><span>    System.out.println(&quot;Enter Number of Queens to be placed on board: &quot;);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">32</span><span>    int n = sc.nextInt();</span></div><div class="line-note">Connects one linked-list node to the next node.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">33</span><span>    List&lt;List&lt;Integer&gt;&gt; result = nQueens(n);</span></div><div class="line-note">Sets List&lt;List&lt;Integer&gt;&gt; result to nQueens(n). This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">34</span><span>    System.out.println(result);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">35</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">36</span><span>Pattern Matching</span></div><div class="line-note">This line supports the surrounding algorithm logic.</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Open source code from your DOCX</summary>
+    <pre><code>private static void nQueensUtil(int j, int n, List&lt;Integer&gt; board, boolean[] rows, boolean[] diag1, boolean[] diag2, List&lt;List&lt;Integer&gt;&gt; result){
+    if (j &gt; n){
+        result.add(new ArrayList&lt;&gt;(board));
+        return;
+    }
+    for (int i = 1; i &lt;= n; i++){
+        if (!rows[i] &amp;&amp; !diag1[i+j] &amp;&amp; !diag2[i - j + n]){
+            board.add(i);
+            rows[i] = true;
+            diag1[i+j] = true;
+            diag2[i-j+n] = true;
+            nQueensUtil(j+1, n, board, rows, diag1, diag2, result);
+            board.remove(board.size() - 1);
+            rows[i] = false;
+            diag1[i+j] = false;
+            diag2[i-j+n] = false;
+        }
+    }
+}
+public static List&lt;List&lt;Integer&gt;&gt; nQueens(int n){
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+    List&lt;Integer&gt; board = new ArrayList&lt;&gt;();
+    boolean[] rows = new boolean[n + 1];
+    boolean[] diag1 = new boolean[2*n+1];
+    boolean[] diag2 = new boolean[2*n+1];
+    nQueensUtil(1, n, board, rows, diag1, diag2, result);
+    return result;
+}
+public static void main(String[] args){
+    Scanner sc = new Scanner(System.in);
+    System.out.println(&quot;Enter Number of Queens to be placed on board: &quot;);
+    int n = sc.nextInt();
+    List&lt;List&lt;Integer&gt;&gt; result = nQueens(n);
+    System.out.println(result);
+}
+
+Pattern Matching</code></pre>
+  </details>
+</article>
+
+<article class="algo-card" id="rabin-karp" data-section="Pattern Matching">
+  <div class="card-stamp">UNIT 02</div>
+  <div class="card-head">
+    <div>
+      <p class="eyebrow">Pattern Matching / Classic</p>
+      <h3>Rabin-Karp</h3>
+    </div>
+    <label class="done-box"><input type="checkbox" data-check="rabin-karp"><span>MASTERED</span></label>
+  </div>
+  <div class="pattern-strip"><strong>Exam trigger:</strong> Find pattern occurrences in text.</div>
+  <div class="grid-two">
+    <section>
+      <h4>Plain-English Core</h4>
+      <p>Instead of comparing every window character by character, compute a fingerprint for the pattern and each text window. If fingerprints differ, skip. If they match, verify characters to avoid hash collision.</p>
+      <div class="memory-lock"><strong>Memory lock:</strong> Hash first, verify only on hash match.</div>
+      <p class="dry-run"><strong>Dry run:</strong> For text ABABDABABCABAB and pattern ABABCABAB, rolling hash lands on the real match.</p>
+    </section>
+    <section>
+      <h4>Code Walkthrough</h4>
+      <ol><li>Compute hash of pattern and first text window.</li>
+<li>Slide the window one character at a time.</li>
+<li>If hashes match, compare actual characters.</li>
+<li>Update text hash by removing outgoing char and adding incoming char.</li>
+<li>Fix negative hash by adding modulus.</li></ol>
+      <p class="complexity">Average O(n+m), worst O(n*m) with many collisions. Space O(1).</p>
+    </section>
+  </div>
+  <div class="trap-box">
+    <h4>Marks-Losing Traps</h4>
+    <ul><li>Always verify characters after hash match.</li>
+<li>Handle negative modulo after rolling update.</li></ul>
+  </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION rabinKarp(text, pattern):
+  M &lt;- length(pattern); N &lt;- length(text)
+  d &lt;- 256          // alphabet size
+  q &lt;- 101          // prime modulus
+  h &lt;- 1
+  FOR i &lt;- 1 TO M - 1:
+    h &lt;- (h * d) MOD q          // h = d^(M-1) MOD q
+  p &lt;- 0; t &lt;- 0                // hash of pattern, hash of first window
+  FOR i &lt;- 0 TO M - 1:
+    p &lt;- (d * p + pattern[i]) MOD q
+    t &lt;- (d * t + text[i]) MOD q
+  FOR i &lt;- 0 TO N - M:
+    IF p == t:                  // hashes match, verify char by char
+      IF text[i .. i+M-1] == pattern:
+        REPORT match at index i
+    IF i &lt; N - M:               // roll hash to next window
+      t &lt;- (d * (t - text[i] * h) + text[i+M]) MOD q
+      IF t &lt; 0:
+        t &lt;- t + q</pre>
+  </div>
+
+
+
+  <details class="line-explain">
+    <summary>Line-by-line code explanation</summary>
+    <div class="line-table">
+<div class="line-row"><div class="line-code"><span class="line-no">1</span><span>public class RabinKarp {</span></div><div class="line-note">Defines the RabinKarp class that groups this algorithm code together.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">2</span><span>    private static void search(String text, String pattern) {</span></div><div class="line-note">Defines the method search. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">3</span><span>        int M = pattern.length();</span></div><div class="line-note">Sets int M to pattern length. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">4</span><span>        int N = text.length();</span></div><div class="line-note">Sets int N to text length. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">5</span><span>        int h = 1;</span></div><div class="line-note">Sets int h to 1. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">6</span><span>        int d = 256;</span></div><div class="line-note">Sets int d to 256. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">7</span><span>        int q = 101;</span></div><div class="line-note">Sets int q to 101. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">8</span><span>        for(int i = 0; i &lt; M-1; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than M-1; i++.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">9</span><span>            h = (d*h)%q;</span></div><div class="line-note">Sets h to (d*h)%q. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">10</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">11</span><span>        int p = 0;</span></div><div class="line-note">Sets int p to 0. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">12</span><span>        int t = 0;</span></div><div class="line-note">Sets int t to 0. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">13</span><span>        for(int i = 0; i &lt; M; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than M; i++.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">14</span><span>            p = (d*p + pattern.charAt(i))%q;</span></div><div class="line-note">Reads a character at a specific index from the string.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">15</span><span>            t = (d*t + text.charAt(i))%q;</span></div><div class="line-note">Reads a character at a specific index from the string.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">16</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">17</span><span>        for(int i = 0; i &lt;= N-M; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is at most N-M; i++.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">18</span><span>            if(p==t) {</span></div><div class="line-note">Checks whether pequalst. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">19</span><span>                int j;</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">20</span><span>                for(j = 0; j &lt; M; j++) {</span></div><div class="line-note">Runs a loop using this control rule: j = 0; j is less than M; j++.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">21</span><span>                    if(pattern.charAt(j) != text.charAt(i+j)) {</span></div><div class="line-note">Checks whether pattern.charAt(j) does not equal text.charAt(i+j). If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">22</span><span>                        break;</span></div><div class="line-note">Stops the current loop because the needed work is finished.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">23</span><span>                    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">24</span><span>                }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">25</span><span>                if(j == M) {</span></div><div class="line-note">Checks whether j equals M. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">26</span><span>                    System.out.println(&quot;Pattern found at index: &quot; + i);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">27</span><span>                }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">28</span><span>            }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">29</span><span>            if(i &lt; N-M) {</span></div><div class="line-note">Checks whether i is less than N-M. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">30</span><span>                t = (d*(t-text.charAt(i)*h) + text.charAt(i+M))%q;</span></div><div class="line-note">Reads a character at a specific index from the string.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">31</span><span>                if(t &lt; 0) {</span></div><div class="line-note">Checks whether t is less than 0. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">32</span><span>                    t += q;</span></div><div class="line-note">Sets t + to q. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">33</span><span>                }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">34</span><span>            }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">35</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">36</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">37</span><span>    public static void main(String[] args) {</span></div><div class="line-note">Defines the method main. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">38</span><span>        String text = &quot;ABABDABABCABAB&quot;;</span></div><div class="line-note">Sets String text to &quot;ABABDABABCABAB&quot;. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">39</span><span>        String pattern = &quot;ABABCABAB&quot;;</span></div><div class="line-note">Sets String pattern to &quot;ABABCABAB&quot;. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">40</span><span>        search(text,pattern);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">41</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">42</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Open source code from your DOCX</summary>
+    <pre><code>public class RabinKarp {
+
+    private static void search(String text, String pattern) {
+        int M = pattern.length();
+        int N = text.length();
+        int h = 1;
+        int d = 256;
+        int q = 101;
+
+        for(int i = 0; i &lt; M-1; i++) {
+            h = (d*h)%q;
+        }
+
+        int p = 0;
+        int t = 0;
+
+        for(int i = 0; i &lt; M; i++) {
+            p = (d*p + pattern.charAt(i))%q;
+            t = (d*t + text.charAt(i))%q;
+        }
+
+        for(int i = 0; i &lt;= N-M; i++) {
+
+            if(p==t) {
+                int j;
+                for(j = 0; j &lt; M; j++) {
+                    if(pattern.charAt(j) != text.charAt(i+j)) {
+                        break;
+                    }
+                }
+                if(j == M) {
+                    System.out.println(&quot;Pattern found at index: &quot; + i);
+                }
+            }
+
+            if(i &lt; N-M) {
+                t = (d*(t-text.charAt(i)*h) + text.charAt(i+M))%q;
+
+                if(t &lt; 0) {
+                    t += q;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String text = &quot;ABABDABABCABAB&quot;;
+        String pattern = &quot;ABABCABAB&quot;;
+        search(text,pattern);
+    }
+}</code></pre>
+  </details>
+</article>
+
+<article class="algo-card" id="travelling-salesman-problem" data-section="Dynamic Programming">
+  <div class="card-stamp">UNIT 03</div>
+  <div class="card-head">
+    <div>
+      <p class="eyebrow">Dynamic Programming / Classic</p>
+      <h3>Travelling Salesman Problem</h3>
+    </div>
+    <label class="done-box"><input type="checkbox" data-check="travelling-salesman-problem"><span>MASTERED</span></label>
+  </div>
+  <div class="pattern-strip"><strong>Exam trigger:</strong> Visit every city exactly once and return to start with minimum cost.</div>
+  <div class="grid-two">
+    <section>
+      <h4>Plain-English Core</h4>
+      <p>The mask is a checklist of visited cities. From your current city, try every unvisited city and remember the cheapest result for this exact state.</p>
+      <div class="memory-lock"><strong>Memory lock:</strong> TSP state is: where am I, and who have I visited?</div>
+      <p class="dry-run"><strong>Dry run:</strong> For 4 cities there are 4 * 2^4 states, much smaller than raw permutations.</p>
+    </section>
+    <section>
+      <h4>Code Walkthrough</h4>
+      <ol><li>State: dp[pos][mask] = minimum remaining cost from pos after visiting mask.</li>
+<li>Base: if all cities visited, return cost[pos][0].</li>
+<li>Try every unvisited city i.</li>
+<li>Answer is min(cost[pos][i] + solve(i, mask with i)).</li>
+<li>Memoize to avoid recomputing the same state.</li></ol>
+      <p class="complexity">Time O(n^2 * 2^n), space O(n * 2^n).</p>
+    </section>
+  </div>
+  <div class="trap-box">
+    <h4>Marks-Losing Traps</h4>
+    <ul><li>Use bit operations carefully: mask | (1 &lt;&lt; i).</li>
+<li>This is exponential DP, suitable only for small n.</li></ul>
+  </div>
+
+  <div class="pseudocode">
+    <h4>Pseudocode &mdash; write this on paper</h4>
+    <pre>FUNCTION tsp(cost):
+  n &lt;- number of cities
+  dp &lt;- 2D array [1&lt;&lt;n][n] filled with -1   // dp[mask][pos]
+  RETURN solve(mask = 1, pos = 0)   // only city 0 visited
+
+FUNCTION solve(mask, pos):
+  // all cities visited: close the tour back to city 0
+  IF mask == (1 &lt;&lt; n) - 1:
+    RETURN cost[pos][0]
+  IF dp[mask][pos] != -1:
+    RETURN dp[mask][pos]
+  best &lt;- INFINITY
+  FOR next &lt;- 0 TO n - 1:
+    IF (mask AND (1 &lt;&lt; next)) == 0:   // next not yet visited
+      best &lt;- MIN(best, cost[pos][next] + solve(mask OR (1 &lt;&lt; next), next))
+  dp[mask][pos] &lt;- best
+  RETURN best</pre>
+  </div>
+
+
+
+  <details class="line-explain">
+    <summary>Line-by-line code explanation</summary>
+    <div class="line-table">
+<div class="line-row"><div class="line-code"><span class="line-no">1</span><span>public class TravellingSalesmanProblem {</span></div><div class="line-note">Defines the TravellingSalesmanProblem class that groups this algorithm code together.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">2</span><span>    static int totalCost(int mask, int pos, int n, int[][] cost, int[][] dp) {</span></div><div class="line-note">Defines the method totalCost. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">3</span><span>        // Base case: if all cities are visited, return the</span></div><div class="line-note">Comment for humans: Base case: if all cities are visited, return the</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">4</span><span>        // cost to return to the starting city (0)</span></div><div class="line-note">Comment for humans: cost to return to the starting city (0)</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">5</span><span>        if (mask == (1 &lt;&lt; n) - 1) {</span></div><div class="line-note">Checks whether mask equals (1 is less thanis less than n) - 1. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">6</span><span>            return cost[pos][0];</span></div><div class="line-note">Sends cost[pos][0] back as the result of the method.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">7</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">8</span><span>        if (dp[pos][mask] != -1) {</span></div><div class="line-note">Checks whether dp[pos][mask] does not equal -1. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">9</span><span>            return dp[pos][mask];</span></div><div class="line-note">Sends dp[pos][mask] back as the result of the method.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">10</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">11</span><span>        int ans = Integer.MAX_VALUE;</span></div><div class="line-note">Uses Java’s largest integer as infinity, meaning the value is not reachable yet.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">12</span><span>        // Try visiting every city that has not been visited</span></div><div class="line-note">Comment for humans: Try visiting every city that has not been visited</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">13</span><span>        // yet</span></div><div class="line-note">Comment for humans: yet</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">14</span><span>        for (int i = 0; i &lt; n; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than n; i++.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">15</span><span>            if ((mask &amp; (1 &lt;&lt; i)) == 0) {</span></div><div class="line-note">Checks whether (mask &amp; (1 is less thanis less than i)) equals 0. If true, the code enters this branch.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">16</span><span>                // If city i is not visited, visit it and</span></div><div class="line-note">Comment for humans: If city i is not visited, visit it and</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">17</span><span>                // update the mask</span></div><div class="line-note">Comment for humans: update the mask</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">18</span><span>                ans = Math.min(ans, cost[pos][i] +</span></div><div class="line-note">Keeps the smaller of two choices; this is usually the shortest/minimum-cost step.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">19</span><span>                        totalCost(mask | (1 &lt;&lt; i), i, n, cost, dp));</span></div><div class="line-note">Uses bitmask operations to track which cities/items have already been visited.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">20</span><span>            }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">21</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">22</span><span>        System.out.printf(&quot;dp[%d][%s] = %d\n&quot;, pos,</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">23</span><span>                String.format(&quot;%4s&quot;, Integer.toBinaryString(mask)).replace(&#x27; &#x27;, &#x27;0&#x27;),</span></div><div class="line-note">Formats text for readable debug/output printing.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">24</span><span>                ans);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">25</span><span>        dp[pos][mask] = ans;</span></div><div class="line-note">Sets dp[pos][mask] to ans. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">26</span><span>        return ans;</span></div><div class="line-note">Sends ans back as the result of the method.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">27</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">28</span><span>    static int tsp(int[][] cost) {</span></div><div class="line-note">Defines the method tsp. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">29</span><span>        int n = cost.length;</span></div><div class="line-note">Sets int n to cost.length. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">30</span><span>        int[][] dp = new int[n][1 &lt;&lt; n];</span></div><div class="line-note">Creates an integer array/table to store computed values for later use.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">31</span><span>        for (int i = 0; i &lt; n; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than n; i++.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">32</span><span>            Arrays.fill(dp[i], -1);</span></div><div class="line-note">Initializes every cell of the array with the same starting value.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">33</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">34</span><span>        // Start from city 0, and only city 0 is</span></div><div class="line-note">Comment for humans: Start from city 0, and only city 0 is</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">35</span><span>        // visited initially (mask = 1)</span></div><div class="line-note">Comment for humans: visited initially (mask = 1)</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">36</span><span>        return totalCost(1, 0, n, cost, dp);</span></div><div class="line-note">Sends totalCost(1, 0, n, cost, dp) back as the result of the method.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">37</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">38</span><span>    public static void main(String[] args) {</span></div><div class="line-note">Defines the method main. This is where this part of the algorithm starts.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">39</span><span>        int[][] cost = { { 0, 10, 15, 20 },</span></div><div class="line-note">Sets int[][] cost to { { 0, 10, 15, 20 },. This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">40</span><span>                { 10, 0, 35, 25 },</span></div><div class="line-note">This line supports the surrounding algorithm logic.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">41</span><span>                { 15, 35, 0, 30 },</span></div><div class="line-note">This line supports the surrounding algorithm logic.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">42</span><span>                { 20, 25, 30, 0 } };</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">43</span><span>        int res = tsp(cost);</span></div><div class="line-note">Sets int res to tsp(cost). This updates the algorithm state.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">44</span><span>        System.out.println(res);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">45</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+<div class="line-row"><div class="line-code"><span class="line-no">46</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Open source code from your DOCX</summary>
+    <pre><code>public class TravellingSalesmanProblem {
+
+    static int totalCost(int mask, int pos, int n, int[][] cost, int[][] dp) {
+
+        // Base case: if all cities are visited, return the
+        // cost to return to the starting city (0)
+        if (mask == (1 &lt;&lt; n) - 1) {
+            return cost[pos][0];
+        }
+
+        if (dp[pos][mask] != -1) {
+            return dp[pos][mask];
+        }
+
+        int ans = Integer.MAX_VALUE;
+
+        // Try visiting every city that has not been visited
+        // yet
+        for (int i = 0; i &lt; n; i++) {
+            if ((mask &amp; (1 &lt;&lt; i)) == 0) {
+
+                // If city i is not visited, visit it and
+                // update the mask
+                ans = Math.min(ans, cost[pos][i] +
+                        totalCost(mask | (1 &lt;&lt; i), i, n, cost, dp));
+            }
+        }
+        System.out.printf(&quot;dp[%d][%s] = %d\n&quot;, pos,
+                String.format(&quot;%4s&quot;, Integer.toBinaryString(mask)).replace(&#x27; &#x27;, &#x27;0&#x27;),
+                ans);
+        dp[pos][mask] = ans;
+        return ans;
+    }
+
+    static int tsp(int[][] cost) {
+        int n = cost.length;
+        int[][] dp = new int[n][1 &lt;&lt; n];
+
+        for (int i = 0; i &lt; n; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+
+        // Start from city 0, and only city 0 is
+        // visited initially (mask = 1)
+        return totalCost(1, 0, n, cost, dp);
+    }
+
+    public static void main(String[] args) {
+
+        int[][] cost = { { 0, 10, 15, 20 },
+                { 10, 0, 35, 25 },
+                { 15, 35, 0, 30 },
+                { 20, 25, 30, 0 } };
+
+        int res = tsp(cost);
+
+        System.out.println(res);
+    }
+}</code></pre>
+  </details>
+</article>
+
+</section>
+
 <section class="content-section" id="divide-conquer">
   <div class="section-title">
     <p>Pattern block</p>
     <h2>Divide &amp; Conquer</h2>
   </div>
-  
+
 <article class="algo-card" id="find-minimum-in-rotated-sorted-array" data-section="Divide &amp; Conquer">
-  <div class="card-stamp">UNIT 01</div>
+  <div class="card-stamp">UNIT 04</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Divide &amp; Conquer / Medium</p>
@@ -678,9 +1159,8 @@
   </details>
 </article>
 
-
 <article class="algo-card" id="majority-element" data-section="Divide &amp; Conquer">
-  <div class="card-stamp">UNIT 02</div>
+  <div class="card-stamp">UNIT 05</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Divide &amp; Conquer / Easy</p>
@@ -784,9 +1264,8 @@
   </details>
 </article>
 
-
 <article class="algo-card" id="merge-k-sorted-lists" data-section="Divide &amp; Conquer">
-  <div class="card-stamp">UNIT 03</div>
+  <div class="card-stamp">UNIT 06</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Divide &amp; Conquer / Hard</p>
@@ -962,9 +1441,8 @@ FUNCTION merge(l1, l2):
   </details>
 </article>
 
-
 <article class="algo-card" id="search-a-2d-matrix-ii" data-section="Divide &amp; Conquer">
-  <div class="card-stamp">UNIT 04</div>
+  <div class="card-stamp">UNIT 07</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Divide &amp; Conquer / Medium</p>
@@ -1076,9 +1554,8 @@ FUNCTION merge(l1, l2):
   </details>
 </article>
 
-
 <article class="algo-card" id="search-in-rotated-sorted-array" data-section="Divide &amp; Conquer">
-  <div class="card-stamp">UNIT 05</div>
+  <div class="card-stamp">UNIT 08</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Divide &amp; Conquer / Medium</p>
@@ -1216,9 +1693,8 @@ FUNCTION merge(l1, l2):
   </details>
 </article>
 
-
 <article class="algo-card" id="search-in-rotated-sorted-array-ii" data-section="Divide &amp; Conquer">
-  <div class="card-stamp">UNIT 06</div>
+  <div class="card-stamp">UNIT 09</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Divide &amp; Conquer / Medium</p>
@@ -1380,9 +1856,9 @@ Greedy Algorithms</code></pre>
     <p>Pattern block</p>
     <h2>Greedy Algorithms</h2>
   </div>
-  
+
 <article class="algo-card" id="minimum-number-of-arrows-to-burst-balloons" data-section="Greedy Algorithms">
-  <div class="card-stamp">UNIT 07</div>
+  <div class="card-stamp">UNIT 10</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Greedy Algorithms / Medium</p>
@@ -1495,9 +1971,8 @@ public class MinArrowsBalloons {
   </details>
 </article>
 
-
 <article class="algo-card" id="non-overlapping-intervals" data-section="Greedy Algorithms">
-  <div class="card-stamp">UNIT 08</div>
+  <div class="card-stamp">UNIT 11</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Greedy Algorithms / Medium</p>
@@ -1613,9 +2088,8 @@ public class NonOverlappingIntervals {
   </details>
 </article>
 
-
 <article class="algo-card" id="fractional-knapsack" data-section="Greedy Algorithms">
-  <div class="card-stamp">UNIT 09</div>
+  <div class="card-stamp">UNIT 12</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Greedy Algorithms / Classic</p>
@@ -1753,9 +2227,8 @@ public class NonOverlappingIntervals {
   </details>
 </article>
 
-
 <article class="algo-card" id="job-sequencing" data-section="Greedy Algorithms">
-  <div class="card-stamp">UNIT 10</div>
+  <div class="card-stamp">UNIT 13</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Greedy Algorithms / Classic</p>
@@ -1920,9 +2393,8 @@ public class NonOverlappingIntervals {
   </details>
 </article>
 
-
 <article class="algo-card" id="dijkstra-s-algorithm" data-section="Greedy Algorithms">
-  <div class="card-stamp">UNIT 11</div>
+  <div class="card-stamp">UNIT 14</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Greedy Algorithms / Graph</p>
@@ -2134,9 +2606,8 @@ public class Dijkstras {
   </details>
 </article>
 
-
 <article class="algo-card" id="prim-s-algorithm" data-section="Greedy Algorithms">
-  <div class="card-stamp">UNIT 12</div>
+  <div class="card-stamp">UNIT 15</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Greedy Algorithms / Graph</p>
@@ -2346,9 +2817,8 @@ public class Prims {
   </details>
 </article>
 
-
 <article class="algo-card" id="zero-one-bfs-algorithm" data-section="Greedy Algorithms">
-  <div class="card-stamp">UNIT 13</div>
+  <div class="card-stamp">UNIT 16</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Greedy Algorithms / Graph</p>
@@ -2579,9 +3049,9 @@ Dynamic Programming</code></pre>
     <p>Pattern block</p>
     <h2>Dynamic Programming</h2>
   </div>
-  
+
 <article class="algo-card" id="coin-change" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 14</div>
+  <div class="card-stamp">UNIT 17</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -2676,9 +3146,8 @@ Dynamic Programming</code></pre>
   </details>
 </article>
 
-
 <article class="algo-card" id="house-robber" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 15</div>
+  <div class="card-stamp">UNIT 18</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -2765,9 +3234,8 @@ Dynamic Programming</code></pre>
   </details>
 </article>
 
-
 <article class="algo-card" id="longest-common-subsequence" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 16</div>
+  <div class="card-stamp">UNIT 19</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -2863,9 +3331,8 @@ Dynamic Programming</code></pre>
   </details>
 </article>
 
-
 <article class="algo-card" id="longest-increasing-subsequence" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 17</div>
+  <div class="card-stamp">UNIT 20</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -2981,9 +3448,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="number-of-longest-increasing-subsequence" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 18</div>
+  <div class="card-stamp">UNIT 21</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -3120,9 +3586,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="longest-palindromic-subsequence" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 19</div>
+  <div class="card-stamp">UNIT 22</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -3221,9 +3686,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="maximum-subarray" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 20</div>
+  <div class="card-stamp">UNIT 23</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -3308,9 +3772,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="unique-paths" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 21</div>
+  <div class="card-stamp">UNIT 24</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -3404,9 +3867,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="unique-paths-ii" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 22</div>
+  <div class="card-stamp">UNIT 25</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Medium</p>
@@ -3533,9 +3995,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="bellman-ford" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 23</div>
+  <div class="card-stamp">UNIT 26</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Graph</p>
@@ -3694,9 +4155,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="floyd-warshall" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 24</div>
+  <div class="card-stamp">UNIT 27</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Graph</p>
@@ -3814,9 +4274,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
 <article class="algo-card" id="0-1-knapsack-dp" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 25</div>
+  <div class="card-stamp">UNIT 28</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Classic</p>
@@ -3929,182 +4388,8 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-
-<article class="algo-card" id="travelling-salesman-problem" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 26</div>
-  <div class="card-head">
-    <div>
-      <p class="eyebrow">Dynamic Programming / Classic</p>
-      <h3>Travelling Salesman Problem</h3>
-    </div>
-    <label class="done-box"><input type="checkbox" data-check="travelling-salesman-problem"><span>MASTERED</span></label>
-  </div>
-  <div class="pattern-strip"><strong>Exam trigger:</strong> Visit every city exactly once and return to start with minimum cost.</div>
-  <div class="grid-two">
-    <section>
-      <h4>Plain-English Core</h4>
-      <p>The mask is a checklist of visited cities. From your current city, try every unvisited city and remember the cheapest result for this exact state.</p>
-      <div class="memory-lock"><strong>Memory lock:</strong> TSP state is: where am I, and who have I visited?</div>
-      <p class="dry-run"><strong>Dry run:</strong> For 4 cities there are 4 * 2^4 states, much smaller than raw permutations.</p>
-    </section>
-    <section>
-      <h4>Code Walkthrough</h4>
-      <ol><li>State: dp[pos][mask] = minimum remaining cost from pos after visiting mask.</li>
-<li>Base: if all cities visited, return cost[pos][0].</li>
-<li>Try every unvisited city i.</li>
-<li>Answer is min(cost[pos][i] + solve(i, mask with i)).</li>
-<li>Memoize to avoid recomputing the same state.</li></ol>
-      <p class="complexity">Time O(n^2 * 2^n), space O(n * 2^n).</p>
-    </section>
-  </div>
-  <div class="trap-box">
-    <h4>Marks-Losing Traps</h4>
-    <ul><li>Use bit operations carefully: mask | (1 &lt;&lt; i).</li>
-<li>This is exponential DP, suitable only for small n.</li></ul>
-  </div>
-
-  <div class="pseudocode">
-    <h4>Pseudocode &mdash; write this on paper</h4>
-    <pre>FUNCTION tsp(cost):
-  n &lt;- number of cities
-  dp &lt;- 2D array [1&lt;&lt;n][n] filled with -1   // dp[mask][pos]
-  RETURN solve(mask = 1, pos = 0)   // only city 0 visited
-
-FUNCTION solve(mask, pos):
-  // all cities visited: close the tour back to city 0
-  IF mask == (1 &lt;&lt; n) - 1:
-    RETURN cost[pos][0]
-  IF dp[mask][pos] != -1:
-    RETURN dp[mask][pos]
-  best &lt;- INFINITY
-  FOR next &lt;- 0 TO n - 1:
-    IF (mask AND (1 &lt;&lt; next)) == 0:   // next not yet visited
-      best &lt;- MIN(best, cost[pos][next] + solve(mask OR (1 &lt;&lt; next), next))
-  dp[mask][pos] &lt;- best
-  RETURN best</pre>
-  </div>
-
-
-
-  <details class="line-explain">
-    <summary>Line-by-line code explanation</summary>
-    <div class="line-table">
-<div class="line-row"><div class="line-code"><span class="line-no">1</span><span>public class TravellingSalesmanProblem {</span></div><div class="line-note">Defines the TravellingSalesmanProblem class that groups this algorithm code together.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">2</span><span>    static int totalCost(int mask, int pos, int n, int[][] cost, int[][] dp) {</span></div><div class="line-note">Defines the method totalCost. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">3</span><span>        // Base case: if all cities are visited, return the</span></div><div class="line-note">Comment for humans: Base case: if all cities are visited, return the</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">4</span><span>        // cost to return to the starting city (0)</span></div><div class="line-note">Comment for humans: cost to return to the starting city (0)</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">5</span><span>        if (mask == (1 &lt;&lt; n) - 1) {</span></div><div class="line-note">Checks whether mask equals (1 is less thanis less than n) - 1. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">6</span><span>            return cost[pos][0];</span></div><div class="line-note">Sends cost[pos][0] back as the result of the method.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">7</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">8</span><span>        if (dp[pos][mask] != -1) {</span></div><div class="line-note">Checks whether dp[pos][mask] does not equal -1. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">9</span><span>            return dp[pos][mask];</span></div><div class="line-note">Sends dp[pos][mask] back as the result of the method.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">10</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">11</span><span>        int ans = Integer.MAX_VALUE;</span></div><div class="line-note">Uses Java’s largest integer as infinity, meaning the value is not reachable yet.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">12</span><span>        // Try visiting every city that has not been visited</span></div><div class="line-note">Comment for humans: Try visiting every city that has not been visited</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">13</span><span>        // yet</span></div><div class="line-note">Comment for humans: yet</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">14</span><span>        for (int i = 0; i &lt; n; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than n; i++.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">15</span><span>            if ((mask &amp; (1 &lt;&lt; i)) == 0) {</span></div><div class="line-note">Checks whether (mask &amp; (1 is less thanis less than i)) equals 0. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">16</span><span>                // If city i is not visited, visit it and</span></div><div class="line-note">Comment for humans: If city i is not visited, visit it and</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">17</span><span>                // update the mask</span></div><div class="line-note">Comment for humans: update the mask</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">18</span><span>                ans = Math.min(ans, cost[pos][i] +</span></div><div class="line-note">Keeps the smaller of two choices; this is usually the shortest/minimum-cost step.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">19</span><span>                        totalCost(mask | (1 &lt;&lt; i), i, n, cost, dp));</span></div><div class="line-note">Uses bitmask operations to track which cities/items have already been visited.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">20</span><span>            }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">21</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">22</span><span>        System.out.printf(&quot;dp[%d][%s] = %d\n&quot;, pos,</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">23</span><span>                String.format(&quot;%4s&quot;, Integer.toBinaryString(mask)).replace(&#x27; &#x27;, &#x27;0&#x27;),</span></div><div class="line-note">Formats text for readable debug/output printing.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">24</span><span>                ans);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">25</span><span>        dp[pos][mask] = ans;</span></div><div class="line-note">Sets dp[pos][mask] to ans. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">26</span><span>        return ans;</span></div><div class="line-note">Sends ans back as the result of the method.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">27</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">28</span><span>    static int tsp(int[][] cost) {</span></div><div class="line-note">Defines the method tsp. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">29</span><span>        int n = cost.length;</span></div><div class="line-note">Sets int n to cost.length. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">30</span><span>        int[][] dp = new int[n][1 &lt;&lt; n];</span></div><div class="line-note">Creates an integer array/table to store computed values for later use.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">31</span><span>        for (int i = 0; i &lt; n; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than n; i++.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">32</span><span>            Arrays.fill(dp[i], -1);</span></div><div class="line-note">Initializes every cell of the array with the same starting value.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">33</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">34</span><span>        // Start from city 0, and only city 0 is</span></div><div class="line-note">Comment for humans: Start from city 0, and only city 0 is</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">35</span><span>        // visited initially (mask = 1)</span></div><div class="line-note">Comment for humans: visited initially (mask = 1)</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">36</span><span>        return totalCost(1, 0, n, cost, dp);</span></div><div class="line-note">Sends totalCost(1, 0, n, cost, dp) back as the result of the method.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">37</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">38</span><span>    public static void main(String[] args) {</span></div><div class="line-note">Defines the method main. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">39</span><span>        int[][] cost = { { 0, 10, 15, 20 },</span></div><div class="line-note">Sets int[][] cost to { { 0, 10, 15, 20 },. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">40</span><span>                { 10, 0, 35, 25 },</span></div><div class="line-note">This line supports the surrounding algorithm logic.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">41</span><span>                { 15, 35, 0, 30 },</span></div><div class="line-note">This line supports the surrounding algorithm logic.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">42</span><span>                { 20, 25, 30, 0 } };</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">43</span><span>        int res = tsp(cost);</span></div><div class="line-note">Sets int res to tsp(cost). This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">44</span><span>        System.out.println(res);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">45</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">46</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-    </div>
-  </details>
-
-  <details>
-    <summary>Open source code from your DOCX</summary>
-    <pre><code>public class TravellingSalesmanProblem {
-
-    static int totalCost(int mask, int pos, int n, int[][] cost, int[][] dp) {
-
-        // Base case: if all cities are visited, return the
-        // cost to return to the starting city (0)
-        if (mask == (1 &lt;&lt; n) - 1) {
-            return cost[pos][0];
-        }
-
-        if (dp[pos][mask] != -1) {
-            return dp[pos][mask];
-        }
-
-        int ans = Integer.MAX_VALUE;
-
-        // Try visiting every city that has not been visited
-        // yet
-        for (int i = 0; i &lt; n; i++) {
-            if ((mask &amp; (1 &lt;&lt; i)) == 0) {
-
-                // If city i is not visited, visit it and
-                // update the mask
-                ans = Math.min(ans, cost[pos][i] +
-                        totalCost(mask | (1 &lt;&lt; i), i, n, cost, dp));
-            }
-        }
-        System.out.printf(&quot;dp[%d][%s] = %d\n&quot;, pos,
-                String.format(&quot;%4s&quot;, Integer.toBinaryString(mask)).replace(&#x27; &#x27;, &#x27;0&#x27;),
-                ans);
-        dp[pos][mask] = ans;
-        return ans;
-    }
-
-    static int tsp(int[][] cost) {
-        int n = cost.length;
-        int[][] dp = new int[n][1 &lt;&lt; n];
-
-        for (int i = 0; i &lt; n; i++) {
-            Arrays.fill(dp[i], -1);
-        }
-
-        // Start from city 0, and only city 0 is
-        // visited initially (mask = 1)
-        return totalCost(1, 0, n, cost, dp);
-    }
-
-    public static void main(String[] args) {
-
-        int[][] cost = { { 0, 10, 15, 20 },
-                { 10, 0, 35, 25 },
-                { 15, 35, 0, 30 },
-                { 20, 25, 30, 0 } };
-
-        int res = tsp(cost);
-
-        System.out.println(res);
-    }
-}</code></pre>
-  </details>
-</article>
-
-
 <article class="algo-card" id="subset-sum" data-section="Dynamic Programming">
-  <div class="card-stamp">UNIT 27</div>
+  <div class="card-stamp">UNIT 29</div>
   <div class="card-head">
     <div>
       <p class="eyebrow">Dynamic Programming / Classic</p>
@@ -4249,325 +4534,6 @@ Backtracking</code></pre>
 </article>
 
 </section>
-
-<section class="content-section" id="backtracking">
-  <div class="section-title">
-    <p>Pattern block</p>
-    <h2>Backtracking</h2>
-  </div>
-  
-<article class="algo-card" id="n-queens" data-section="Backtracking">
-  <div class="card-stamp">UNIT 28</div>
-  <div class="card-head">
-    <div>
-      <p class="eyebrow">Backtracking / Hard</p>
-      <h3>N-Queens</h3>
-    </div>
-    <label class="done-box"><input type="checkbox" data-check="n-queens"><span>MASTERED</span></label>
-  </div>
-  <div class="pattern-strip"><strong>Exam trigger:</strong> Place queens so none attack each other.</div>
-  <div class="grid-two">
-    <section>
-      <h4>Plain-English Core</h4>
-      <p>Place one queen per column. Before placing, check if its row or diagonals are already under attack. If a choice later fails, undo it and try the next row.</p>
-      <div class="memory-lock"><strong>Memory lock:</strong> Choose, mark, recurse, unmark.</div>
-      <p class="dry-run"><strong>Dry run:</strong> For n=4, the recursion eventually finds two valid board layouts.</p>
-    </section>
-    <section>
-      <h4>Code Walkthrough</h4>
-      <ol><li>Column j is the recursion level.</li>
-<li>Try every row i in that column.</li>
-<li>Reject if row, main diagonal, or anti-diagonal is occupied.</li>
-<li>Place queen and mark row/diagonals.</li>
-<li>Recurse to next column, then unmark on return.</li></ol>
-      <p class="complexity">Roughly O(n!), space O(n) plus result storage.</p>
-    </section>
-  </div>
-  <div class="trap-box">
-    <h4>Marks-Losing Traps</h4>
-    <ul><li>Diagonal formulas: row+col and row-col+n.</li>
-<li>Backtracking bugs usually come from forgetting to unmark.</li></ul>
-  </div>
-
-  <div class="pseudocode">
-    <h4>Pseudocode &mdash; write this on paper</h4>
-    <pre>FUNCTION nQueens(n):
-  result &lt;- empty list
-  board &lt;- empty list        // board[col] = row of queen
-  rows, diag1, diag2 &lt;- boolean arrays (all false)
-  place(col = 1)
-  RETURN result
-
-FUNCTION place(col):
-  IF col &gt; n:                          // all columns filled
-    add copy of board to result
-    RETURN
-  FOR row &lt;- 1 TO n:
-    // diagonals identified by (row+col) and (row-col)
-    IF NOT rows[row] AND NOT diag1[row+col] AND NOT diag2[row-col+n]:
-      board.add(row); rows[row] &lt;- diag1[row+col] &lt;- diag2[row-col+n] &lt;- true
-      place(col + 1)
-      board.removeLast(); rows[row] &lt;- diag1[row+col] &lt;- diag2[row-col+n] &lt;- false</pre>
-  </div>
-
-
-
-  <details class="line-explain">
-    <summary>Line-by-line code explanation</summary>
-    <div class="line-table">
-<div class="line-row"><div class="line-code"><span class="line-no">1</span><span>private static void nQueensUtil(int j, int n, List&lt;Integer&gt; board, boolean[] rows, boolean[] diag1, boolean[] diag2, List&lt;List&lt;Integer&gt;&gt; result){</span></div><div class="line-note">Defines the method nQueensUtil. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">2</span><span>    if (j &gt; n){</span></div><div class="line-note">Checks whether j is greater than n. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">3</span><span>        result.add(new ArrayList&lt;&gt;(board));</span></div><div class="line-note">Creates a dynamic list that can grow as elements are added.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">4</span><span>        return;</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">5</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">6</span><span>    for (int i = 1; i &lt;= n; i++){</span></div><div class="line-note">Runs a loop using this control rule: int i = 1; i is at most n; i++.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">7</span><span>        if (!rows[i] &amp;&amp; !diag1[i+j] &amp;&amp; !diag2[i - j + n]){</span></div><div class="line-note">Checks whether !rows[i] AND !diag1[i+j] AND !diag2[i - j + n]. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">8</span><span>            board.add(i);</span></div><div class="line-note">Adds this item into a list, graph adjacency list, priority queue, or result collection.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">9</span><span>            rows[i] = true;</span></div><div class="line-note">Sets rows[i] to true. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">10</span><span>            diag1[i+j] = true;</span></div><div class="line-note">Sets diag1[i+j] to true. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">11</span><span>            diag2[i-j+n] = true;</span></div><div class="line-note">Sets diag2[i-j+n] to true. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">12</span><span>            nQueensUtil(j+1, n, board, rows, diag1, diag2, result);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">13</span><span>            board.remove(board.size() - 1);</span></div><div class="line-note">Removes the last chosen item while backtracking to undo the previous choice.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">14</span><span>            rows[i] = false;</span></div><div class="line-note">Sets rows[i] to false. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">15</span><span>            diag1[i+j] = false;</span></div><div class="line-note">Sets diag1[i+j] to false. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">16</span><span>            diag2[i-j+n] = false;</span></div><div class="line-note">Sets diag2[i-j+n] to false. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">17</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">18</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">19</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">20</span><span>public static List&lt;List&lt;Integer&gt;&gt; nQueens(int n){</span></div><div class="line-note">Defines the method nQueens. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">21</span><span>    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();</span></div><div class="line-note">Creates a dynamic list that can grow as elements are added.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">22</span><span>    List&lt;Integer&gt; board = new ArrayList&lt;&gt;();</span></div><div class="line-note">Creates a dynamic list that can grow as elements are added.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">23</span><span>    boolean[] rows = new boolean[n + 1];</span></div><div class="line-note">Creates a boolean marker array to remember which states are already used or possible.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">24</span><span>    boolean[] diag1 = new boolean[2*n+1];</span></div><div class="line-note">Creates a boolean marker array to remember which states are already used or possible.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">25</span><span>    boolean[] diag2 = new boolean[2*n+1];</span></div><div class="line-note">Creates a boolean marker array to remember which states are already used or possible.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">26</span><span>    nQueensUtil(1, n, board, rows, diag1, diag2, result);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">27</span><span>    return result;</span></div><div class="line-note">Returns the final answer collection or count after all work is complete.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">28</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">29</span><span>public static void main(String[] args){</span></div><div class="line-note">Defines the method main. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">30</span><span>    Scanner sc = new Scanner(System.in);</span></div><div class="line-note">Creates an input reader so the program can read values from the user.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">31</span><span>    System.out.println(&quot;Enter Number of Queens to be placed on board: &quot;);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">32</span><span>    int n = sc.nextInt();</span></div><div class="line-note">Connects one linked-list node to the next node.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">33</span><span>    List&lt;List&lt;Integer&gt;&gt; result = nQueens(n);</span></div><div class="line-note">Sets List&lt;List&lt;Integer&gt;&gt; result to nQueens(n). This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">34</span><span>    System.out.println(result);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">35</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">36</span><span>Pattern Matching</span></div><div class="line-note">This line supports the surrounding algorithm logic.</div></div>
-    </div>
-  </details>
-
-  <details>
-    <summary>Open source code from your DOCX</summary>
-    <pre><code>private static void nQueensUtil(int j, int n, List&lt;Integer&gt; board, boolean[] rows, boolean[] diag1, boolean[] diag2, List&lt;List&lt;Integer&gt;&gt; result){
-    if (j &gt; n){
-        result.add(new ArrayList&lt;&gt;(board));
-        return;
-    }
-    for (int i = 1; i &lt;= n; i++){
-        if (!rows[i] &amp;&amp; !diag1[i+j] &amp;&amp; !diag2[i - j + n]){
-            board.add(i);
-            rows[i] = true;
-            diag1[i+j] = true;
-            diag2[i-j+n] = true;
-            nQueensUtil(j+1, n, board, rows, diag1, diag2, result);
-            board.remove(board.size() - 1);
-            rows[i] = false;
-            diag1[i+j] = false;
-            diag2[i-j+n] = false;
-        }
-    }
-}
-public static List&lt;List&lt;Integer&gt;&gt; nQueens(int n){
-    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
-    List&lt;Integer&gt; board = new ArrayList&lt;&gt;();
-    boolean[] rows = new boolean[n + 1];
-    boolean[] diag1 = new boolean[2*n+1];
-    boolean[] diag2 = new boolean[2*n+1];
-    nQueensUtil(1, n, board, rows, diag1, diag2, result);
-    return result;
-}
-public static void main(String[] args){
-    Scanner sc = new Scanner(System.in);
-    System.out.println(&quot;Enter Number of Queens to be placed on board: &quot;);
-    int n = sc.nextInt();
-    List&lt;List&lt;Integer&gt;&gt; result = nQueens(n);
-    System.out.println(result);
-}
-
-Pattern Matching</code></pre>
-  </details>
-</article>
-
-</section>
-
-<section class="content-section" id="pattern-matching">
-  <div class="section-title">
-    <p>Pattern block</p>
-    <h2>Pattern Matching</h2>
-  </div>
-  
-<article class="algo-card" id="rabin-karp" data-section="Pattern Matching">
-  <div class="card-stamp">UNIT 29</div>
-  <div class="card-head">
-    <div>
-      <p class="eyebrow">Pattern Matching / Classic</p>
-      <h3>Rabin-Karp</h3>
-    </div>
-    <label class="done-box"><input type="checkbox" data-check="rabin-karp"><span>MASTERED</span></label>
-  </div>
-  <div class="pattern-strip"><strong>Exam trigger:</strong> Find pattern occurrences in text.</div>
-  <div class="grid-two">
-    <section>
-      <h4>Plain-English Core</h4>
-      <p>Instead of comparing every window character by character, compute a fingerprint for the pattern and each text window. If fingerprints differ, skip. If they match, verify characters to avoid hash collision.</p>
-      <div class="memory-lock"><strong>Memory lock:</strong> Hash first, verify only on hash match.</div>
-      <p class="dry-run"><strong>Dry run:</strong> For text ABABDABABCABAB and pattern ABABCABAB, rolling hash lands on the real match.</p>
-    </section>
-    <section>
-      <h4>Code Walkthrough</h4>
-      <ol><li>Compute hash of pattern and first text window.</li>
-<li>Slide the window one character at a time.</li>
-<li>If hashes match, compare actual characters.</li>
-<li>Update text hash by removing outgoing char and adding incoming char.</li>
-<li>Fix negative hash by adding modulus.</li></ol>
-      <p class="complexity">Average O(n+m), worst O(n*m) with many collisions. Space O(1).</p>
-    </section>
-  </div>
-  <div class="trap-box">
-    <h4>Marks-Losing Traps</h4>
-    <ul><li>Always verify characters after hash match.</li>
-<li>Handle negative modulo after rolling update.</li></ul>
-  </div>
-
-  <div class="pseudocode">
-    <h4>Pseudocode &mdash; write this on paper</h4>
-    <pre>FUNCTION rabinKarp(text, pattern):
-  M &lt;- length(pattern); N &lt;- length(text)
-  d &lt;- 256          // alphabet size
-  q &lt;- 101          // prime modulus
-  h &lt;- 1
-  FOR i &lt;- 1 TO M - 1:
-    h &lt;- (h * d) MOD q          // h = d^(M-1) MOD q
-  p &lt;- 0; t &lt;- 0                // hash of pattern, hash of first window
-  FOR i &lt;- 0 TO M - 1:
-    p &lt;- (d * p + pattern[i]) MOD q
-    t &lt;- (d * t + text[i]) MOD q
-  FOR i &lt;- 0 TO N - M:
-    IF p == t:                  // hashes match, verify char by char
-      IF text[i .. i+M-1] == pattern:
-        REPORT match at index i
-    IF i &lt; N - M:               // roll hash to next window
-      t &lt;- (d * (t - text[i] * h) + text[i+M]) MOD q
-      IF t &lt; 0:
-        t &lt;- t + q</pre>
-  </div>
-
-
-
-  <details class="line-explain">
-    <summary>Line-by-line code explanation</summary>
-    <div class="line-table">
-<div class="line-row"><div class="line-code"><span class="line-no">1</span><span>public class RabinKarp {</span></div><div class="line-note">Defines the RabinKarp class that groups this algorithm code together.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">2</span><span>    private static void search(String text, String pattern) {</span></div><div class="line-note">Defines the method search. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">3</span><span>        int M = pattern.length();</span></div><div class="line-note">Sets int M to pattern length. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">4</span><span>        int N = text.length();</span></div><div class="line-note">Sets int N to text length. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">5</span><span>        int h = 1;</span></div><div class="line-note">Sets int h to 1. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">6</span><span>        int d = 256;</span></div><div class="line-note">Sets int d to 256. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">7</span><span>        int q = 101;</span></div><div class="line-note">Sets int q to 101. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">8</span><span>        for(int i = 0; i &lt; M-1; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than M-1; i++.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">9</span><span>            h = (d*h)%q;</span></div><div class="line-note">Sets h to (d*h)%q. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">10</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">11</span><span>        int p = 0;</span></div><div class="line-note">Sets int p to 0. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">12</span><span>        int t = 0;</span></div><div class="line-note">Sets int t to 0. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">13</span><span>        for(int i = 0; i &lt; M; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is less than M; i++.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">14</span><span>            p = (d*p + pattern.charAt(i))%q;</span></div><div class="line-note">Reads a character at a specific index from the string.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">15</span><span>            t = (d*t + text.charAt(i))%q;</span></div><div class="line-note">Reads a character at a specific index from the string.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">16</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">17</span><span>        for(int i = 0; i &lt;= N-M; i++) {</span></div><div class="line-note">Runs a loop using this control rule: int i = 0; i is at most N-M; i++.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">18</span><span>            if(p==t) {</span></div><div class="line-note">Checks whether pequalst. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">19</span><span>                int j;</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">20</span><span>                for(j = 0; j &lt; M; j++) {</span></div><div class="line-note">Runs a loop using this control rule: j = 0; j is less than M; j++.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">21</span><span>                    if(pattern.charAt(j) != text.charAt(i+j)) {</span></div><div class="line-note">Checks whether pattern.charAt(j) does not equal text.charAt(i+j). If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">22</span><span>                        break;</span></div><div class="line-note">Stops the current loop because the needed work is finished.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">23</span><span>                    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">24</span><span>                }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">25</span><span>                if(j == M) {</span></div><div class="line-note">Checks whether j equals M. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">26</span><span>                    System.out.println(&quot;Pattern found at index: &quot; + i);</span></div><div class="line-note">Prints this value so you can see the algorithm output during testing.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">27</span><span>                }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">28</span><span>            }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">29</span><span>            if(i &lt; N-M) {</span></div><div class="line-note">Checks whether i is less than N-M. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">30</span><span>                t = (d*(t-text.charAt(i)*h) + text.charAt(i+M))%q;</span></div><div class="line-note">Reads a character at a specific index from the string.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">31</span><span>                if(t &lt; 0) {</span></div><div class="line-note">Checks whether t is less than 0. If true, the code enters this branch.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">32</span><span>                    t += q;</span></div><div class="line-note">Sets t + to q. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">33</span><span>                }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">34</span><span>            }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">35</span><span>        }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">36</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">37</span><span>    public static void main(String[] args) {</span></div><div class="line-note">Defines the method main. This is where this part of the algorithm starts.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">38</span><span>        String text = &quot;ABABDABABCABAB&quot;;</span></div><div class="line-note">Sets String text to &quot;ABABDABABCABAB&quot;. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">39</span><span>        String pattern = &quot;ABABCABAB&quot;;</span></div><div class="line-note">Sets String pattern to &quot;ABABCABAB&quot;. This updates the algorithm state.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">40</span><span>        search(text,pattern);</span></div><div class="line-note">Executes this Java statement as one step in the algorithm.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">41</span><span>    }</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-<div class="line-row"><div class="line-code"><span class="line-no">42</span><span>}</span></div><div class="line-note">Closes the current block so execution returns to the previous level.</div></div>
-    </div>
-  </details>
-
-  <details>
-    <summary>Open source code from your DOCX</summary>
-    <pre><code>public class RabinKarp {
-
-    private static void search(String text, String pattern) {
-        int M = pattern.length();
-        int N = text.length();
-        int h = 1;
-        int d = 256;
-        int q = 101;
-
-        for(int i = 0; i &lt; M-1; i++) {
-            h = (d*h)%q;
-        }
-
-        int p = 0;
-        int t = 0;
-
-        for(int i = 0; i &lt; M; i++) {
-            p = (d*p + pattern.charAt(i))%q;
-            t = (d*t + text.charAt(i))%q;
-        }
-
-        for(int i = 0; i &lt;= N-M; i++) {
-
-            if(p==t) {
-                int j;
-                for(j = 0; j &lt; M; j++) {
-                    if(pattern.charAt(j) != text.charAt(i+j)) {
-                        break;
-                    }
-                }
-                if(j == M) {
-                    System.out.println(&quot;Pattern found at index: &quot; + i);
-                }
-            }
-
-            if(i &lt; N-M) {
-                t = (d*(t-text.charAt(i)*h) + text.charAt(i+M))%q;
-
-                if(t &lt; 0) {
-                    t += q;
-                }
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        String text = &quot;ABABDABABCABAB&quot;;
-        String pattern = &quot;ABABCABAB&quot;;
-        search(text,pattern);
-    }
-}</code></pre>
-  </details>
-</article>
-
-</section>
-
 
     <section class="timetable" id="timetable">
       <h2>Study Timetable</h2>
