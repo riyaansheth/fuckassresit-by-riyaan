@@ -4537,58 +4537,52 @@ Backtracking</code></pre>
 
     <section class="timetable" id="timetable">
       <h2>Study Timetable</h2>
-      <p><strong>Daily target: 3 hours &times; 5 days (Jul 19&ndash;23). Exam Jul 24.</strong> Prof confirmed: <strong>exactly one of TSP, Rabin-Karp, N-Queens WILL appear</strong> &mdash; so all three are drilled cold on Day 1 and re-drilled on the revision day. Guaranteed marks, locked first. Evening windows shown per day (weekday evenings, after uni + internship).</p>
+      <p><strong>Daily target: 3 hours &times; 4 days (Jul 20&ndash;23). Exam Jul 24.</strong> 12 hours left from a near-zero start, and the paper is <strong>write-the-code</strong> &mdash; so this plan is deliberately ruthless. Covering all 29 is off the table; the goal is <strong>16 algorithms you can reproduce cold</strong>. Everything else is dropped on purpose.</p>
+      <p><strong>Paper: Section A = 10 marks compulsory. Section B = 30 marks, any 3 of 5.</strong> Because you choose 3 of 5, mastering ~16 well beats half-knowing 29. Prof confirmed <strong>one of TSP / Rabin-Karp / N-Queens WILL appear</strong> &mdash; those three are locked in tonight and rewritten twice more.</p>
       <div class="routine">
         <div>0:00-0:10<br>Recall yesterday, no notes</div>
-        <div>0:10-0:50<br>Learn core idea</div>
-        <div>0:50-1:50<br>Handwrite pseudocode from memory</div>
-        <div>1:50-2:35<br>Dry-run table + complexity</div>
-        <div>2:35-2:55<br>Extra reps on weak ones</div>
+        <div>0:10-0:40<br>Read the card + pseudocode</div>
+        <div>0:40-1:50<br>Handwrite the CODE from memory</div>
+        <div>1:50-2:30<br>Diff vs card, fix, rewrite</div>
+        <div>2:30-2:55<br>Second cold rewrite</div>
         <div>2:55-3:00<br>Error log + flashcards</div>
       </div>
       <table style="margin-top:18px">
         <thead><tr><th>Date</th><th>Focus</th><th>Topics</th><th>Required Output</th></tr></thead>
         <tbody>
 <tr>
-  <td><strong>Jul 19</strong><span>Sun &middot; 8:30&ndash;11:30pm</span></td>
-  <td>GUARANTEED THREE (one WILL appear)</td>
-  <td>8:30&ndash;9:25 N-Queens (backtracking). 9:25&ndash;10:20 Rabin-Karp (rolling hash). 10:20&ndash;11:20 TSP (bitmask DP). 11:20&ndash;11:30 flashcards.</td>
-  <td>All three handwritten as pseudocode from memory once (no typing). State the trigger + complexity for each: N-Queens O(N!), Rabin-Karp O(n+m) avg, TSP O(2&#8319;&middot;n&sup2;).</td>
-</tr>
-
-<tr>
   <td><strong>Jul 20</strong><span>Mon &middot; 8:30&ndash;11:30pm</span></td>
-  <td>Learn: Divide &amp; Conquer + answer template</td>
-  <td>Find Min / Search in Rotated Sorted Array (I &amp; II), Search 2D Matrix II, Majority Element, Merge K Sorted Lists. Read the 40-mark template.</td>
-  <td>All 6 D&amp;C algos handwritten as pseudocode from memory once. Binary-search boundary rules written out. Template memorised: Definition &rarr; Algorithm &rarr; Code &rarr; Complexity.</td>
+  <td>GUARANTEED THREE &mdash; one WILL appear</td>
+  <td>8:30&ndash;9:25 N-Queens (backtracking). 9:25&ndash;10:20 Rabin-Karp (rolling hash). 10:20&ndash;11:20 TSP (bitmask DP). 11:20&ndash;11:30 flashcards.</td>
+  <td>All three written as full CODE on paper from memory, twice each. These are your locked marks &mdash; do not leave tonight until all three are reproducible cold.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 21</strong><span>Tue &middot; 8:30&ndash;11:30pm</span></td>
-  <td>Learn: Greedy (incl. graph greedy)</td>
-  <td>Min Arrows, Non-overlapping Intervals, Fractional Knapsack, Job Sequencing, Dijkstra, Prim, 0-1 BFS.</td>
-  <td>Interval-scheduling rule stated (sort by end). Dijkstra + Prim handwritten as pseudocode from memory. Complexity for each.</td>
+  <td>Graph algorithms (highest-probability named algos)</td>
+  <td>8:30&ndash;9:30 Dijkstra. 9:30&ndash;10:20 Bellman-Ford. 10:20&ndash;11:05 Floyd-Warshall. 11:05&ndash;11:30 Prim.</td>
+  <td>Each written as code from memory. Know the one-line difference: Dijkstra = non-negative, Bellman-Ford = negative edges, Floyd-Warshall = all-pairs, Prim = MST.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 22</strong><span>Wed &middot; 8:30&ndash;11:30pm</span></td>
-  <td>Learn: Dynamic Programming</td>
-  <td>Coin Change, House Robber, Maximum Subarray, Unique Paths I &amp; II, LIS, Number of LIS, LCS, Longest Palindromic Subseq, 0/1 Knapsack, Subset Sum, Bellman-Ford, Floyd-Warshall.</td>
-  <td>Recurrence written before code. 1D vs 2D table drawn for LCS/LIS. Knapsack + Subset Sum coded. Bellman-Ford vs Floyd-Warshall use-case noted.</td>
+  <td>DP classics (most-examined block)</td>
+  <td>8:30&ndash;9:15 Coin Change. 9:15&ndash;10:00 0/1 Knapsack. 10:00&ndash;10:40 LCS. 10:40&ndash;11:10 LIS. 11:10&ndash;11:30 House Robber + Maximum Subarray (both short).</td>
+  <td>Recurrence written before code every time. Knapsack and LCS table-filled by hand once each.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 23</strong><span>Thu &middot; 8:30&ndash;11:30pm</span></td>
-  <td>REVISION: re-drill guaranteed three + mock</td>
-  <td>8:30&ndash;9:30 re-write N-Queens, Rabin-Karp, TSP pseudocode cold on paper (no notes). 9:30&ndash;10:15 weakest 5 from error log. 10:15&ndash;11:30 one 40-mark timed mock, handwritten.</td>
-  <td>The three guaranteed algos handwritten perfectly from memory. Every other algo recalled name &rarr; approach &rarr; complexity in under 30s. Mock done under time.</td>
+  <td>Last block + REVISION + timed mock</td>
+  <td>8:30&ndash;9:20 D&amp;C core: Find Min Rotated, Search in Rotated, Majority Element. 9:20&ndash;9:40 Non-overlapping Intervals (greedy). 9:40&ndash;10:30 rewrite the guaranteed three cold. 10:30&ndash;11:30 timed handwritten mock: 1 Section A + 3 Section B.</td>
+  <td>Guaranteed three perfect from memory. Mock finished inside the time limit, handwritten, no notes.</td>
 </tr>
 
 <tr>
   <td><strong>Jul 24</strong><span>Fri &middot; before paper</span></td>
   <td>Exam-day warm-up</td>
-  <td>Re-write the three guaranteed algos one final time. Skim error log + flashcards. No new material.</td>
-  <td>Stay calm. Re-read the 40-mark template once before the paper.</td>
+  <td>Write the three guaranteed algos one final time. Skim error log only. No new material.</td>
+  <td>In Section B, read all 5 first and pick your 3 strongest before writing a single line.</td>
 </tr></tbody>
       </table>
     </section>
