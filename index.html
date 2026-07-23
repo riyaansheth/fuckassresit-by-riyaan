@@ -4537,38 +4537,31 @@ Backtracking</code></pre>
 
     <section class="timetable" id="timetable">
       <h2>Study Timetable</h2>
-      <p><strong>TRIAGE MODE: 2 evenings left (Jul 22&ndash;23) + exam morning. Paper Jul 24, 12:30pm.</strong> ~6 study hours plus a warm-up window. Covering the syllabus is impossible now &mdash; this plan targets <strong>9 algorithms you can write cold</strong> and abandons the rest on purpose. Half-knowing 20 scores nothing on a write-the-code paper; fully knowing 9 can pass it.</p>
-      <p><strong>Why this can still work: Section B is 3 of 5.</strong> You only need three questions you can actually write. Prof confirmed <strong>one of TSP / Rabin-Karp / N-Queens WILL appear</strong> &mdash; that is one Section B answer effectively guaranteed, so all three are locked tonight and rewritten twice more before the paper.</p>
-      <div class="routine">
-        <div>Step 1<br>Read card + pseudocode once</div>
-        <div>Step 2<br>Close it. Handwrite the code</div>
-        <div>Step 3<br>Diff vs card, mark errors</div>
-        <div>Step 4<br>Rewrite cold until clean</div>
-        <div>Step 5<br>One line in error log</div>
-        <div>Rule<br>Reproduce, never re-read</div>
-      </div>
+      <p><strong>FINAL 2 BLOCKS. Paper: Fri Jul 24, 12:30pm.</strong> N-Queens is DONE &mdash; one of the three guaranteed marks is already banked. Remaining: <strong>tonight 6:30pm&ndash;2:00am (7.5h)</strong> and <strong>tomorrow 8:00&ndash;11:30am (3.5h)</strong>. That is ~11 hours, which is enough for <strong>10 algorithms written cold</strong>. Everything not listed below is abandoned &mdash; do not open it.</p>
+      <p><strong>Tonight&rsquo;s priority order is deliberate:</strong> finish the two remaining guaranteed algos FIRST (Rabin-Karp, TSP) while you are freshest. Prof confirmed one of the three appears, so completing that set tonight locks a Section B answer. Everything after 9:50pm is bonus &mdash; valuable, but never at the cost of the guaranteed three.</p>
+      <p><strong>Hard rule: stop at 2:00am.</strong> You need ~6h sleep. An all-nighter wrecks recall, and this paper is pure reproduction from memory &mdash; tired hands write nothing. Sleep is part of the plan, not a break from it.</p>
       <table style="margin-top:18px">
-        <thead><tr><th>Date</th><th>Focus</th><th>Topics</th><th>Required Output</th></tr></thead>
+        <thead><tr><th>Block</th><th>Clock</th><th>Task</th><th>Output</th></tr></thead>
         <tbody>
 <tr>
-  <td><strong>Jul 22</strong><span>Wed &middot; TONIGHT &middot; 8:30&ndash;11:30pm</span></td>
-  <td>GUARANTEED THREE &mdash; nothing else matters tonight</td>
-  <td>8:30&ndash;9:20 N-Queens (start here, most forgiving). 9:20&ndash;10:15 Rabin-Karp (rolling hash). 10:15&ndash;11:20 TSP (bitmask DP, hardest). 11:20&ndash;11:30 error log.</td>
-  <td>All three written as full code on paper from memory, <strong>twice each</strong>. Do not sleep until all three are reproducible cold. This is the highest-value session you have left.</td>
+  <td><strong>TONIGHT</strong><span>Thu Jul 23</span></td>
+  <td>6:30&ndash;7:30pm<br>7:30&ndash;7:45<br>7:45&ndash;9:15pm<br>9:15&ndash;9:30<br>9:30&ndash;9:50pm</td>
+  <td><strong>Rabin-Karp</strong> &mdash; rolling hash. Learn, then write twice.<br><em>Break + eat.</em><br><strong>TSP</strong> &mdash; bitmask DP, the hardest. 90 min on purpose. Write twice.<br><em>Break.</em><br><strong>Cold rewrite N-Queens + Rabin-Karp</strong>, no notes.</td>
+  <td>GUARANTEED THREE COMPLETE. Do not move past 9:50pm until all three are reproducible cold. If you are behind, stay here and drop everything below.</td>
 </tr>
 
 <tr>
-  <td><strong>Jul 23</strong><span>Thu &middot; 8:30&ndash;11:30pm</span></td>
-  <td>Retention pass + 6 highest-yield algos</td>
-  <td>8:30&ndash;9:00 rewrite the guaranteed three cold, no notes. 9:00&ndash;9:45 Dijkstra. 9:45&ndash;10:25 0/1 Knapsack. 10:25&ndash;10:55 Coin Change. 10:55&ndash;11:15 Fractional Knapsack (cheap). 11:15&ndash;11:30 House Robber + Maximum Subarray (both tiny).</td>
-  <td>Guaranteed three still perfect after 24h. Six new algos written once each from memory. Anything unfinished is dropped &mdash; do not extend into the night, sleep matters more.</td>
+  <td><strong>TONIGHT</strong><span>bonus block</span></td>
+  <td>9:50&ndash;10:40pm<br>10:40&ndash;10:50<br>10:50&ndash;11:35pm<br>11:35&ndash;12:05am<br>12:05&ndash;12:15<br>12:15&ndash;12:35am<br>12:35&ndash;1:00am<br>1:00&ndash;1:40am<br>1:40&ndash;2:00am</td>
+  <td><strong>Dijkstra</strong> (50 min).<br><em>Break.</em><br><strong>0/1 Knapsack</strong> (45 min).<br><strong>Coin Change</strong> (30 min).<br><em>Break.</em><br><strong>Fractional Knapsack</strong> (20 min, cheap win).<br><strong>House Robber + Maximum Subarray</strong> (both tiny).<br><strong>LCS</strong> (40 min).<br>Cold rewrite of the guaranteed three + error log.</td>
+  <td>Each written once from memory, then diffed. If you fall behind, cut from the BOTTOM (drop LCS, then House Robber/Max Subarray) &mdash; never cut the 1:40am rewrite.</td>
 </tr>
 
 <tr>
-  <td><strong>Jul 24</strong><span>Fri &middot; 8:30&ndash;11:30am &middot; PAPER 12:30pm</span></td>
-  <td>Final warm-up &mdash; reproduce only, learn nothing new</td>
-  <td>8:30&ndash;9:30 write the guaranteed three cold one last time. 9:30&ndash;10:15 Dijkstra + 0/1 Knapsack. 10:15&ndash;10:50 skim every pseudocode block + error log. 10:50 STOP. Eat, travel, arrive early.</td>
-  <td>No new material today. In the hall: read all 5 Section B questions first, pick your 3 strongest, then write. Never leave a question blank &mdash; approach + complexity still scores.</td>
+  <td><strong>EXAM DAY</strong><span>Fri Jul 24</span></td>
+  <td>8:00&ndash;9:00am<br>9:00&ndash;9:45am<br>9:45&ndash;10:00<br>10:00&ndash;10:45am<br>10:45&ndash;11:30am<br>11:30am</td>
+  <td><strong>Cold rewrite the guaranteed three</strong> &mdash; no notes, this is the one that matters.<br><strong>Dijkstra + 0/1 Knapsack</strong> from memory.<br><em>Break.</em><br><strong>Coin Change, LCS, House Robber, Max Subarray</strong> &mdash; quick rewrites.<br>Skim every pseudocode block + error log. Nothing new.<br><strong>STOP.</strong> Eat, pack, travel, arrive early.</td>
+  <td>NO new algorithms today &mdash; reproduction only. In the hall: read all 5 Section B questions first, pick your 3 strongest, then write. Never leave one blank; approach + recurrence + complexity all score.</td>
 </tr></tbody>
       </table>
     </section>
