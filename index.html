@@ -4537,31 +4537,47 @@ Backtracking</code></pre>
 
     <section class="timetable" id="timetable">
       <h2>Study Timetable</h2>
-      <p><strong>FINAL 2 BLOCKS. Paper: Fri Jul 24, 12:30pm.</strong> N-Queens is DONE &mdash; one of the three guaranteed marks is already banked. Remaining: <strong>tonight 6:30pm&ndash;2:00am (7.5h)</strong> and <strong>tomorrow 8:00&ndash;11:30am (3.5h)</strong>. That is ~11 hours, which is enough for <strong>10 algorithms written cold</strong>. Everything not listed below is abandoned &mdash; do not open it.</p>
-      <p><strong>Tonight&rsquo;s priority order is deliberate:</strong> finish the two remaining guaranteed algos FIRST (Rabin-Karp, TSP) while you are freshest. Prof confirmed one of the three appears, so completing that set tonight locks a Section B answer. Everything after 9:50pm is bonus &mdash; valuable, but never at the cost of the guaranteed three.</p>
-      <p><strong>Hard rule: stop at 2:00am.</strong> You need ~6h sleep. An all-nighter wrecks recall, and this paper is pure reproduction from memory &mdash; tired hands write nothing. Sleep is part of the plan, not a break from it.</p>
+      <p><strong>EXAM MORNING &mdash; paper at 12:30pm.</strong> The recovered end-sem paper (same code 26BT403ATI, same format) reveals the exact question set. The whole exam collapses to <strong>FIVE algorithms</strong>. Study nothing else.</p>
+      <p><strong>Section A (both compulsory, 10 marks):</strong> Longest Palindromic Subsequence + Coin Change. <strong>Section B (answer Q2/Q3/Q4 &mdash; the single-algo questions, skip the double-part Q5/Q6):</strong> Bellman-Ford + Dijkstra + N-Queens.</p>
+      <p><strong>Cheap wins:</strong> LPS = run LCS on <em>s</em> vs <em>reverse(s)</em> (or the interval DP on the card). Bellman-Ford = relax every edge V&minus;1 times, no priority queue &mdash; simpler than Dijkstra. N-Queens is already done. Keep TSP + Rabin-Karp only as warm backup; they did not appear last time.</p>
       <table style="margin-top:18px">
-        <thead><tr><th>Block</th><th>Clock</th><th>Task</th><th>Output</th></tr></thead>
+        <thead><tr><th>Clock</th><th>Algorithm</th><th>Covers</th><th>Output</th></tr></thead>
         <tbody>
 <tr>
-  <td><strong>TONIGHT</strong><span>Thu Jul 23</span></td>
-  <td>6:30&ndash;7:30pm<br>7:30&ndash;7:45<br>7:45&ndash;9:15pm<br>9:15&ndash;9:30<br>9:30&ndash;9:50pm</td>
-  <td><strong>Rabin-Karp</strong> &mdash; rolling hash. Learn, then write twice.<br><em>Break + eat.</em><br><strong>TSP</strong> &mdash; bitmask DP, the hardest. 90 min on purpose. Write twice.<br><em>Break.</em><br><strong>Cold rewrite N-Queens + Rabin-Karp</strong>, no notes.</td>
-  <td>GUARANTEED THREE COMPLETE. Do not move past 9:50pm until all three are reproducible cold. If you are behind, stay here and drop everything below.</td>
+  <td><strong>8:00&ndash;8:20am</strong></td>
+  <td>N-Queens &mdash; cold refresh</td>
+  <td>B4 (done, keep it)</td>
+  <td>Rewrite once from memory, confirm still perfect. Then leave it alone.</td>
 </tr>
-
 <tr>
-  <td><strong>TONIGHT</strong><span>bonus block</span></td>
-  <td>9:50&ndash;10:40pm<br>10:40&ndash;10:50<br>10:50&ndash;11:35pm<br>11:35&ndash;12:05am<br>12:05&ndash;12:15<br>12:15&ndash;12:35am<br>12:35&ndash;1:00am<br>1:00&ndash;1:40am<br>1:40&ndash;2:00am</td>
-  <td><strong>Dijkstra</strong> (50 min).<br><em>Break.</em><br><strong>0/1 Knapsack</strong> (45 min).<br><strong>Coin Change</strong> (30 min).<br><em>Break.</em><br><strong>Fractional Knapsack</strong> (20 min, cheap win).<br><strong>House Robber + Maximum Subarray</strong> (both tiny).<br><strong>LCS</strong> (40 min).<br>Cold rewrite of the guaranteed three + error log.</td>
-  <td>Each written once from memory, then diffed. If you fall behind, cut from the BOTTOM (drop LCS, then House Robber/Max Subarray) &mdash; never cut the 1:40am rewrite.</td>
+  <td><strong>8:20&ndash;9:05am</strong></td>
+  <td>Coin Change</td>
+  <td>A1b (compulsory)</td>
+  <td>Write twice. dp[amount], for each coin relax dp[a]=min(dp[a], dp[a-coin]+1).</td>
 </tr>
-
 <tr>
-  <td><strong>EXAM DAY</strong><span>Fri Jul 24</span></td>
-  <td>8:00&ndash;9:00am<br>9:00&ndash;9:45am<br>9:45&ndash;10:00<br>10:00&ndash;10:45am<br>10:45&ndash;11:30am<br>11:30am</td>
-  <td><strong>Cold rewrite the guaranteed three</strong> &mdash; no notes, this is the one that matters.<br><strong>Dijkstra + 0/1 Knapsack</strong> from memory.<br><em>Break.</em><br><strong>Coin Change, LCS, House Robber, Max Subarray</strong> &mdash; quick rewrites.<br>Skim every pseudocode block + error log. Nothing new.<br><strong>STOP.</strong> Eat, pack, travel, arrive early.</td>
-  <td>NO new algorithms today &mdash; reproduction only. In the hall: read all 5 Section B questions first, pick your 3 strongest, then write. Never leave one blank; approach + recurrence + complexity all score.</td>
+  <td><strong>9:05&ndash;10:00am</strong></td>
+  <td>LCS &rarr; then LPS</td>
+  <td>A1a (compulsory)</td>
+  <td>Nail LCS 2D table first, then get LPS free: LPS(s) = LCS(s, reverse(s)). Write both.</td>
+</tr>
+<tr>
+  <td><strong>10:00&ndash;10:45am</strong></td>
+  <td>Dijkstra</td>
+  <td>B3</td>
+  <td>Write twice. Min-priority-queue, pop closest, relax neighbours. Non-negative weights.</td>
+</tr>
+<tr>
+  <td><strong>10:45&ndash;11:30am</strong></td>
+  <td>Bellman-Ford</td>
+  <td>B2 (your third Section B)</td>
+  <td>Write twice. Relax ALL edges V&minus;1 times; one extra pass detects a negative cycle. If it won't stick, fall back to LIS (B6b) instead.</td>
+</tr>
+<tr>
+  <td><strong>11:30am</strong></td>
+  <td>STOP &mdash; skim + travel</td>
+  <td>&mdash;</td>
+  <td>Skim the 5 pseudocode blocks once. Eat, pack, leave early. In the hall: Section A both parts, Section B do Q2/Q3/Q4. Never leave anything blank.</td>
 </tr></tbody>
       </table>
     </section>
