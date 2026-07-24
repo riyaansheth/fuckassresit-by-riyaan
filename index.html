@@ -497,6 +497,10 @@
       body { background: white; }
       .algo-card, .battle-plan, .matrix, .timetable, .exam-template { box-shadow: none; break-inside: avoid; }
     }
+    .typetabs{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;max-width:1200px;margin:26px auto 0;padding:0 20px;}
+    .typetabs button{font:950 16px/1 "Arial Black",Impact,sans-serif;text-transform:uppercase;letter-spacing:.5px;padding:14px 30px;border:var(--border);background:var(--white);color:var(--ink);cursor:pointer;box-shadow:var(--shadow);}
+    .typetabs button.active{background:var(--acid);}
+    .typetabs button:active{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink);}
   </style>
 </head>
 <body>
@@ -527,6 +531,12 @@
       <div class="stat-card pink"><strong>2h</strong><span>Minimum daily investment</span></div>
     </aside>
   </section>
+
+  <div class="typetabs">
+    <button data-type="all" class="active">All</button>
+    <button data-type="leetcode">LeetCodes</button>
+    <button data-type="algo">Algorithms</button>
+  </div>
 
   <main>
     <section class="battle-plan" id="plan">
@@ -568,7 +578,7 @@
     <h2>The Guaranteed Three</h2>
   </div>
 
-<article class="algo-card" id="n-queens" data-section="Backtracking">
+<article class="algo-card" id="n-queens" data-type="leetcode" data-section="Backtracking">
   <div class="card-stamp">UNIT 01</div>
   <div class="card-head">
     <div>
@@ -708,7 +718,7 @@ Pattern Matching</code></pre>
   </details>
 </article>
 
-<article class="algo-card" id="rabin-karp" data-section="Pattern Matching">
+<article class="algo-card" id="rabin-karp" data-type="algo" data-section="Pattern Matching">
   <div class="card-stamp">UNIT 02</div>
   <div class="card-head">
     <div>
@@ -870,7 +880,7 @@ Pattern Matching</code></pre>
   </details>
 </article>
 
-<article class="algo-card" id="travelling-salesman-problem" data-section="Dynamic Programming">
+<article class="algo-card" id="travelling-salesman-problem" data-type="algo" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 03</div>
   <div class="card-head">
     <div>
@@ -1050,7 +1060,7 @@ FUNCTION solve(mask, pos):
     <h2>Divide &amp; Conquer</h2>
   </div>
 
-<article class="algo-card" id="find-minimum-in-rotated-sorted-array" data-section="Divide &amp; Conquer">
+<article class="algo-card" id="find-minimum-in-rotated-sorted-array" data-type="leetcode" data-section="Divide &amp; Conquer">
   <div class="card-stamp">UNIT 04</div>
   <div class="card-head">
     <div>
@@ -1159,7 +1169,7 @@ FUNCTION solve(mask, pos):
   </details>
 </article>
 
-<article class="algo-card" id="majority-element" data-section="Divide &amp; Conquer">
+<article class="algo-card" id="majority-element" data-type="leetcode" data-section="Divide &amp; Conquer">
   <div class="card-stamp">UNIT 05</div>
   <div class="card-head">
     <div>
@@ -1264,7 +1274,7 @@ FUNCTION solve(mask, pos):
   </details>
 </article>
 
-<article class="algo-card" id="merge-k-sorted-lists" data-section="Divide &amp; Conquer">
+<article class="algo-card" id="merge-k-sorted-lists" data-type="leetcode" data-section="Divide &amp; Conquer">
   <div class="card-stamp">UNIT 06</div>
   <div class="card-head">
     <div>
@@ -1441,7 +1451,7 @@ FUNCTION merge(l1, l2):
   </details>
 </article>
 
-<article class="algo-card" id="search-a-2d-matrix-ii" data-section="Divide &amp; Conquer">
+<article class="algo-card" id="search-a-2d-matrix-ii" data-type="leetcode" data-section="Divide &amp; Conquer">
   <div class="card-stamp">UNIT 07</div>
   <div class="card-head">
     <div>
@@ -1554,7 +1564,7 @@ FUNCTION merge(l1, l2):
   </details>
 </article>
 
-<article class="algo-card" id="search-in-rotated-sorted-array" data-section="Divide &amp; Conquer">
+<article class="algo-card" id="search-in-rotated-sorted-array" data-type="leetcode" data-section="Divide &amp; Conquer">
   <div class="card-stamp">UNIT 08</div>
   <div class="card-head">
     <div>
@@ -1693,7 +1703,7 @@ FUNCTION merge(l1, l2):
   </details>
 </article>
 
-<article class="algo-card" id="search-in-rotated-sorted-array-ii" data-section="Divide &amp; Conquer">
+<article class="algo-card" id="search-in-rotated-sorted-array-ii" data-type="leetcode" data-section="Divide &amp; Conquer">
   <div class="card-stamp">UNIT 09</div>
   <div class="card-head">
     <div>
@@ -1857,7 +1867,7 @@ Greedy Algorithms</code></pre>
     <h2>Greedy Algorithms</h2>
   </div>
 
-<article class="algo-card" id="minimum-number-of-arrows-to-burst-balloons" data-section="Greedy Algorithms">
+<article class="algo-card" id="minimum-number-of-arrows-to-burst-balloons" data-type="leetcode" data-section="Greedy Algorithms">
   <div class="card-stamp">UNIT 10</div>
   <div class="card-head">
     <div>
@@ -1971,7 +1981,7 @@ public class MinArrowsBalloons {
   </details>
 </article>
 
-<article class="algo-card" id="non-overlapping-intervals" data-section="Greedy Algorithms">
+<article class="algo-card" id="non-overlapping-intervals" data-type="leetcode" data-section="Greedy Algorithms">
   <div class="card-stamp">UNIT 11</div>
   <div class="card-head">
     <div>
@@ -2088,7 +2098,7 @@ public class NonOverlappingIntervals {
   </details>
 </article>
 
-<article class="algo-card" id="fractional-knapsack" data-section="Greedy Algorithms">
+<article class="algo-card" id="fractional-knapsack" data-type="algo" data-section="Greedy Algorithms">
   <div class="card-stamp">UNIT 12</div>
   <div class="card-head">
     <div>
@@ -2227,7 +2237,7 @@ public class NonOverlappingIntervals {
   </details>
 </article>
 
-<article class="algo-card" id="job-sequencing" data-section="Greedy Algorithms">
+<article class="algo-card" id="job-sequencing" data-type="algo" data-section="Greedy Algorithms">
   <div class="card-stamp">UNIT 13</div>
   <div class="card-head">
     <div>
@@ -2393,7 +2403,7 @@ public class NonOverlappingIntervals {
   </details>
 </article>
 
-<article class="algo-card" id="dijkstra-s-algorithm" data-section="Greedy Algorithms">
+<article class="algo-card" id="dijkstra-s-algorithm" data-type="algo" data-section="Greedy Algorithms">
   <div class="card-stamp">UNIT 14</div>
   <div class="card-head">
     <div>
@@ -2606,7 +2616,7 @@ public class Dijkstras {
   </details>
 </article>
 
-<article class="algo-card" id="prim-s-algorithm" data-section="Greedy Algorithms">
+<article class="algo-card" id="prim-s-algorithm" data-type="algo" data-section="Greedy Algorithms">
   <div class="card-stamp">UNIT 15</div>
   <div class="card-head">
     <div>
@@ -2817,7 +2827,7 @@ public class Prims {
   </details>
 </article>
 
-<article class="algo-card" id="zero-one-bfs-algorithm" data-section="Greedy Algorithms">
+<article class="algo-card" id="zero-one-bfs-algorithm" data-type="algo" data-section="Greedy Algorithms">
   <div class="card-stamp">UNIT 16</div>
   <div class="card-head">
     <div>
@@ -3050,7 +3060,7 @@ Dynamic Programming</code></pre>
     <h2>Dynamic Programming</h2>
   </div>
 
-<article class="algo-card" id="coin-change" data-section="Dynamic Programming">
+<article class="algo-card" id="coin-change" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 17</div>
   <div class="card-head">
     <div>
@@ -3146,7 +3156,7 @@ Dynamic Programming</code></pre>
   </details>
 </article>
 
-<article class="algo-card" id="house-robber" data-section="Dynamic Programming">
+<article class="algo-card" id="house-robber" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 18</div>
   <div class="card-head">
     <div>
@@ -3234,7 +3244,7 @@ Dynamic Programming</code></pre>
   </details>
 </article>
 
-<article class="algo-card" id="longest-common-subsequence" data-section="Dynamic Programming">
+<article class="algo-card" id="longest-common-subsequence" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 19</div>
   <div class="card-head">
     <div>
@@ -3331,7 +3341,7 @@ Dynamic Programming</code></pre>
   </details>
 </article>
 
-<article class="algo-card" id="longest-increasing-subsequence" data-section="Dynamic Programming">
+<article class="algo-card" id="longest-increasing-subsequence" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 20</div>
   <div class="card-head">
     <div>
@@ -3448,7 +3458,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="number-of-longest-increasing-subsequence" data-section="Dynamic Programming">
+<article class="algo-card" id="number-of-longest-increasing-subsequence" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 21</div>
   <div class="card-head">
     <div>
@@ -3586,7 +3596,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="longest-palindromic-subsequence" data-section="Dynamic Programming">
+<article class="algo-card" id="longest-palindromic-subsequence" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 22</div>
   <div class="card-head">
     <div>
@@ -3686,7 +3696,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="maximum-subarray" data-section="Dynamic Programming">
+<article class="algo-card" id="maximum-subarray" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 23</div>
   <div class="card-head">
     <div>
@@ -3772,7 +3782,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="unique-paths" data-section="Dynamic Programming">
+<article class="algo-card" id="unique-paths" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 24</div>
   <div class="card-head">
     <div>
@@ -3867,7 +3877,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="unique-paths-ii" data-section="Dynamic Programming">
+<article class="algo-card" id="unique-paths-ii" data-type="leetcode" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 25</div>
   <div class="card-head">
     <div>
@@ -3995,7 +4005,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="bellman-ford" data-section="Dynamic Programming">
+<article class="algo-card" id="bellman-ford" data-type="algo" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 26</div>
   <div class="card-head">
     <div>
@@ -4155,7 +4165,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="floyd-warshall" data-section="Dynamic Programming">
+<article class="algo-card" id="floyd-warshall" data-type="algo" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 27</div>
   <div class="card-head">
     <div>
@@ -4274,7 +4284,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="0-1-knapsack-dp" data-section="Dynamic Programming">
+<article class="algo-card" id="0-1-knapsack-dp" data-type="algo" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 28</div>
   <div class="card-head">
     <div>
@@ -4388,7 +4398,7 @@ Arrays.fill(dp, 1);
   </details>
 </article>
 
-<article class="algo-card" id="subset-sum" data-section="Dynamic Programming">
+<article class="algo-card" id="subset-sum" data-type="algo" data-section="Dynamic Programming">
   <div class="card-stamp">UNIT 29</div>
   <div class="card-head">
     <div>
@@ -4600,6 +4610,21 @@ Backtracking</code></pre>
       <p class="footer-note">Final rule: first pass is allowed to be imperfect. Revision 1 fixes understanding; Revision 2 fixes exam speed. Every night, rewrite the weakest three algorithms without looking.</p>
     </section>
   </main>
+
+  <script>
+    const _tabs=[...document.querySelectorAll('.typetabs button')];
+    const _cards=[...document.querySelectorAll('.algo-card')];
+    const _secs=[...document.querySelectorAll('.content-section')];
+    function _filter(type){
+      _cards.forEach(c=>{c.style.display=(type==='all'||c.dataset.type===type)?'':'none';});
+      _secs.forEach(sec=>{
+        const any=[...sec.querySelectorAll('.algo-card')].some(c=>c.style.display!=='none');
+        sec.style.display=any?'':'none';
+      });
+      _tabs.forEach(t=>t.classList.toggle('active',t.dataset.type===type));
+    }
+    _tabs.forEach(t=>t.addEventListener('click',()=>_filter(t.dataset.type)));
+  </script>
 
   <script>
     const boxes = [...document.querySelectorAll('input[data-check]')];
