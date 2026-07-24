@@ -4537,47 +4537,54 @@ Backtracking</code></pre>
 
     <section class="timetable" id="timetable">
       <h2>Study Timetable</h2>
-      <p><strong>EXAM MORNING &mdash; paper at 12:30pm.</strong> The recovered end-sem paper (same code 26BT403ATI, same format) reveals the exact question set. The whole exam collapses to <strong>FIVE algorithms</strong>. Study nothing else.</p>
-      <p><strong>Section A (both compulsory, 10 marks):</strong> Longest Palindromic Subsequence + Coin Change. <strong>Section B (answer Q2/Q3/Q4 &mdash; the single-algo questions, skip the double-part Q5/Q6):</strong> Bellman-Ford + Dijkstra + N-Queens.</p>
-      <p><strong>Cheap wins:</strong> LPS = run LCS on <em>s</em> vs <em>reverse(s)</em> (or the interval DP on the card). Bellman-Ford = relax every edge V&minus;1 times, no priority queue &mdash; simpler than Dijkstra. N-Queens is already done. Keep TSP + Rabin-Karp only as warm backup; they did not appear last time.</p>
+      <p><strong>EXAM MORNING &mdash; resit paper at 12:30pm.</strong> The recovered paper is the <strong>end-sem you failed</strong>, not the resit &mdash; so the resit will be a NEW paper: same format and topic pool, likely different specific questions. Use it for the <strong>format and the professor&rsquo;s taste</strong>, not as a question leak.</p>
+      <p><strong>Format (certain):</strong> Section A = 2 compulsory LeetCode problems (write code from a statement). Section B = answer 3 of 5; the single-algo &ldquo;Explain X&rdquo; questions are half the work of the double-part ones &mdash; always prefer them.</p>
+      <p><strong>Anchor (confirmed by prof):</strong> one of <strong>TSP / Rabin-Karp / N-Queens</strong> WILL be on the resit. Last time it was N-Queens; this time it could be any of the three &mdash; so keep all three warm, N-Queens is not enough alone.</p>
+      <p><strong>Highest-EV morning spread (not a prediction of exact questions):</strong> Section A &rarr; cheap high-frequency DP LeetCodes (Coin Change, LCS+LPS, House Robber, Max Subarray). Section B &rarr; the graph-algo cluster (Dijkstra + Bellman-Ford) plus your warm guaranteed three. Knowing Dijkstra makes Prim &amp; Floyd-Warshall cheap stretch adds if time allows.</p>
       <table style="margin-top:18px">
         <thead><tr><th>Clock</th><th>Algorithm</th><th>Covers</th><th>Output</th></tr></thead>
         <tbody>
 <tr>
-  <td><strong>8:00&ndash;8:20am</strong></td>
-  <td>N-Queens &mdash; cold refresh</td>
-  <td>B4 (done, keep it)</td>
-  <td>Rewrite once from memory, confirm still perfect. Then leave it alone.</td>
+  <td><strong>8:00&ndash;8:25am</strong></td>
+  <td>Guaranteed three &mdash; cold refresh</td>
+  <td>Section B anchor</td>
+  <td>Rewrite N-Queens, then skim TSP + Rabin-Karp. One of these IS on the resit &mdash; all three must stay reproducible.</td>
 </tr>
 <tr>
-  <td><strong>8:20&ndash;9:05am</strong></td>
+  <td><strong>8:25&ndash;9:05am</strong></td>
   <td>Coin Change</td>
-  <td>A1b (compulsory)</td>
-  <td>Write twice. dp[amount], for each coin relax dp[a]=min(dp[a], dp[a-coin]+1).</td>
+  <td>Section A (DP)</td>
+  <td>Write twice. dp[amount], for each coin dp[a]=min(dp[a], dp[a-coin]+1).</td>
 </tr>
 <tr>
-  <td><strong>9:05&ndash;10:00am</strong></td>
+  <td><strong>9:05&ndash;9:55am</strong></td>
   <td>LCS &rarr; then LPS</td>
-  <td>A1a (compulsory)</td>
-  <td>Nail LCS 2D table first, then get LPS free: LPS(s) = LCS(s, reverse(s)). Write both.</td>
+  <td>Section A (DP)</td>
+  <td>Nail LCS 2D table, then LPS free: LPS(s) = LCS(s, reverse(s)). Write both.</td>
 </tr>
 <tr>
-  <td><strong>10:00&ndash;10:45am</strong></td>
+  <td><strong>9:55&ndash;10:20am</strong></td>
+  <td>House Robber + Maximum Subarray</td>
+  <td>Section A (DP, both tiny)</td>
+  <td>Two of the cheapest LeetCodes in the pool. ~12 min each, high frequency.</td>
+</tr>
+<tr>
+  <td><strong>10:20&ndash;11:05am</strong></td>
   <td>Dijkstra</td>
-  <td>B3</td>
+  <td>Section B (graph)</td>
   <td>Write twice. Min-priority-queue, pop closest, relax neighbours. Non-negative weights.</td>
 </tr>
 <tr>
-  <td><strong>10:45&ndash;11:30am</strong></td>
+  <td><strong>11:05&ndash;11:40am</strong></td>
   <td>Bellman-Ford</td>
-  <td>B2 (your third Section B)</td>
-  <td>Write twice. Relax ALL edges V&minus;1 times; one extra pass detects a negative cycle. If it won't stick, fall back to LIS (B6b) instead.</td>
+  <td>Section B (graph)</td>
+  <td>Relax ALL edges V&minus;1 times; one extra pass detects a negative cycle. Simpler than Dijkstra &mdash; no PQ.</td>
 </tr>
 <tr>
-  <td><strong>11:30am</strong></td>
+  <td><strong>11:40am</strong></td>
   <td>STOP &mdash; skim + travel</td>
   <td>&mdash;</td>
-  <td>Skim the 5 pseudocode blocks once. Eat, pack, leave early. In the hall: Section A both parts, Section B do Q2/Q3/Q4. Never leave anything blank.</td>
+  <td>Skim pseudocode blocks. Eat, pack, leave early. In the hall: do both Section A parts; in Section B pick the single-algo questions; never leave anything blank &mdash; recurrence + complexity still score.</td>
 </tr></tbody>
       </table>
     </section>
